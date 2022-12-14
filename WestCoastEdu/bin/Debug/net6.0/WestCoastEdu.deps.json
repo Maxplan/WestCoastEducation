@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "WestCoastEdu/1.0.0": {
+        "dependencies": {
+          "WestCoastEdu.BCL": "1.0.0"
+        },
+        "runtime": {
+          "WestCoastEdu.dll": {}
+        }
+      },
+      "WestCoastEdu.BCL/1.0.0": {
+        "runtime": {
+          "WestCoastEdu.BCL.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "WestCoastEdu/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WestCoastEdu.BCL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,12 @@
+C:\Users\maxpl\WestCoastEduStart\WestCoastEdu.BCL\bin\Debug\net6.0\WestCoastEdu.BCL.deps.json
+C:\Users\maxpl\WestCoastEduStart\WestCoastEdu.BCL\bin\Debug\net6.0\WestCoastEdu.BCL.dll
+C:\Users\maxpl\WestCoastEduStart\WestCoastEdu.BCL\bin\Debug\net6.0\WestCoastEdu.BCL.pdb
+C:\Users\maxpl\WestCoastEduStart\WestCoastEdu.BCL\obj\Debug\net6.0\WestCoastEdu.BCL.csproj.AssemblyReference.cache
+C:\Users\maxpl\WestCoastEduStart\WestCoastEdu.BCL\obj\Debug\net6.0\WestCoastEdu.BCL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\maxpl\WestCoastEduStart\WestCoastEdu.BCL\obj\Debug\net6.0\WestCoastEdu.BCL.AssemblyInfoInputs.cache
+C:\Users\maxpl\WestCoastEduStart\WestCoastEdu.BCL\obj\Debug\net6.0\WestCoastEdu.BCL.AssemblyInfo.cs
+C:\Users\maxpl\WestCoastEduStart\WestCoastEdu.BCL\obj\Debug\net6.0\WestCoastEdu.BCL.csproj.CoreCompileInputs.cache
+C:\Users\maxpl\WestCoastEduStart\WestCoastEdu.BCL\obj\Debug\net6.0\WestCoastEdu.BCL.dll
+C:\Users\maxpl\WestCoastEduStart\WestCoastEdu.BCL\obj\Debug\net6.0\refint\WestCoastEdu.BCL.dll
+C:\Users\maxpl\WestCoastEduStart\WestCoastEdu.BCL\obj\Debug\net6.0\WestCoastEdu.BCL.pdb
+C:\Users\maxpl\WestCoastEduStart\WestCoastEdu.BCL\obj\Debug\net6.0\ref\WestCoastEdu.BCL.dll
