@@ -10,14 +10,9 @@ class Program
 {
     static void Main(string[] args)
     {   
-        Student student = new Student("123", "123", "123");
-        var kurs = new Course("Svenska", false, true, new DateTime(2022, 12, 14), new DateTime(2023, 01, 01));
+        var max = new Student("Max", "Planstedt", "19970403-2177");
 
-        System.Console.WriteLine(kurs.CourseName);
+        max.ListAccountInfo();
 
-        var ny = new Handler();
-        ny.AddStudentToCourse(student, kurs);
-
-        System.Console.WriteLine(student.ActiveCourses[0].CourseName);
     }
 }

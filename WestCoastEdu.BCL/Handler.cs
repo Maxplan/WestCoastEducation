@@ -11,5 +11,9 @@ namespace WestCoastEdu.BCL
             course.AddNewStudent(student);
             student.EnrollCourse(course);
         }
+        public void AddCourseToStudent(Student student, Course course){
+            course.AddNewStudent(student);
+            student.EnrollCourse(course);
+        }
     }
 }
