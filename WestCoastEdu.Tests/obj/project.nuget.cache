@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "h3UFL9RuxhGwO2t6QQNYxIH82QHOFH+sSbCotgDE/h7+uqH5axrttmTWkWtPdeGY7UqmUDiuy80bmfsV3/1rbw==",
+  "dgSpecHash": "QMWfl88TEO9uhpMwniZPXBj3B+FNrq1TTNsEhzMOv/Xl0T3i3g3uAAsbrQ7ZWrQxBkZYvppz4WbaRuaHtMS71g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.Tests\\WestCoastEdu.Tests.csproj",
+  "projectFilePath": "c:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.Tests\\WestCoastEdu.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\maxpl\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\maxpl\\.nuget\\packages\\microsoft.codecoverage\\17.3.2\\microsoft.codecoverage.17.3.2.nupkg.sha512",
