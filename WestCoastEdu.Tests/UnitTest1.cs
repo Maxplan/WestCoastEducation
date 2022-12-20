@@ -101,4 +101,22 @@ public class StudentTest
 
         Assert.Equal(1, student.SignedUpCourses.Count);
     }
+
+    [Fact]
+    public void TestName()
+    {
+        // Given
+        var course = new Course("Svenska", false, true, new DateTime(2022, 12, 14), new DateTime(2023, 01, 01));
+        bool result = true;
+        // When
+        if (string.IsNullOrEmpty(course.CourseName) || string.IsNullOrWhiteSpace(course.CourseName))
+        {
+            result = false;
+        }
+
+        Assert.True(result);
+        // Then
+    }
+
+    
 }
