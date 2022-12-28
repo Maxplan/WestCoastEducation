@@ -1,1 +1,12 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="IndexContainer">
+    <h1 class="WelcomeText">Welcome to West Coast Education</h1>
+    <div class="CourseLink">
+        <p class="CourseLinkText">Click the button to see our available courses</p>
+        <button class="CourseLinkBtn">@Html.ActionLink("Our Courses", "Courses", "Home")</button>
+    </div>   
+</div>
+

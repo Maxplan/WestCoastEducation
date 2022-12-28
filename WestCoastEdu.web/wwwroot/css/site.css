@@ -1,22 +1,143 @@
-html {
-  font-size: 14px;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600&display=swap');
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'nunito', sans-serif;
+  color: #323232;
+}
+body{
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: #DDD0C8;
+}
+.NavContainer{
+  background-color: #d6c1b3;
+  width: 100vw;
+  height: 6vh;
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0em 1.5em;
+}
+.NavMenu{
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+  align-items: center;
+}
+.NavMenu a{
+  color: rgb(53, 53, 53);
+  text-decoration: none;
+  font-size: 1.25em;
+}
+.MainContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 86vh;
+}
+.FooterContainer{
+  position: absolute;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  background-color: #d6c1b3;
+  height: auto;
+}
+.FooterContentItem{
+  text-decoration: none;
+  list-style: none;
+}
+.IndexContainer{
+  display: flex;
+  flex-direction: column;
+  margin-top: 4em;
+}
+.CourseLink{
+  display: flex;
+  align-items: center;
+}
+.CourseLinkText{
+  font-size: 1em;
+}
+.CourseLinkBtn{
+  display: flex;
+  justify-content: center;
+  border: 1px solid #7f7f7f;
+  background: #DDD0C8;
+  margin: 0em 1em;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  width: 8em;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  border-radius: 5px;
+}
+.CourseLinkBtn:hover{
+  background-color: #d6c1b3;
+}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none; 
+}
+a:hover { 
+  text-decoration: none;
+}
+a:active {
+  text-decoration: none;
+}
+.CoursesContainer{
+  margin-top: 4em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.CourseItem{
+  background-color: #d6c1b3;
+  margin: 0.5em;
+  padding: 1em;
+  width: 20em;
+}
+.CourseTitle{
+  text-decoration: underline;
+}
+.CourseLocation, .AvailableSpots{
+  margin: 0em 0.5em;
+}
+.HomeLinkBtn{
+  display: flex;
+  justify-content: center;
+  border: 1px solid #7f7f7f;
+  background: #DDD0C8;
+  margin: 3em 1em;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  width: 8em;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  border-radius: 5px;
+}
+.HomeLinkBtn:hover{
+  background-color: #d6c1b3;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.NavTag{
+  margin-right : auto;
+  display: flex;
+  align-items: baseline;
+  cursor: pointer;
 }
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.NavTagName{
+  font-weight: 700;
+  font-size: 1.75em;
 }
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
+.NavTagSubName{
+  margin-left: 0.25em;
+  font-size: 1.25em;
+  font-weight: 400;
 }
