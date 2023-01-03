@@ -17,7 +17,7 @@ body{
   height: 6vh;
   align-items: center;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0em 1.5em;
 }
 .NavMenu{
@@ -73,7 +73,7 @@ body{
   font-size: 1em;
   width: 8em;
   cursor: pointer;
-  transition: all 250ms ease-in-out;
+  transition: color 250ms ease-out;
   border-radius: 5px;
 }
 .CourseLinkBtn:hover{
@@ -119,7 +119,7 @@ a:active {
   font-size: 1em;
   width: 8em;
   cursor: pointer;
-  transition: all 250ms ease-in-out;
+  transition: color 250ms ease-out;
   border-radius: 5px;
 }
 .HomeLinkBtn:hover{
@@ -127,7 +127,6 @@ a:active {
 }
 
 .NavTag{
-  margin-right : auto;
   display: flex;
   align-items: baseline;
   cursor: pointer;

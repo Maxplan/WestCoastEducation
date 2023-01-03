@@ -7,7 +7,7 @@ namespace WestCoastEdu.BCL
 {
     public class Course
     {
-        public Guid CourseId { get; init; } = Guid.NewGuid();  
+        public int CourseId { get; init; }
         public string? CourseName { get; private set; }
         public bool OnDemand { get; private set; } // Can be purchased?
         public bool IsDistance {get; private set;} // Distance or classroom bound?
