@@ -8,7 +8,7 @@ namespace WestCoastEdu.BCL
     public abstract class Account
     {
         //Properties
-        public Guid AccountId { get; init; } = Guid.NewGuid();
+        public int AccountId { get; init; }
         public string? FirstName { get; set;}
         public string? LastName { get; set;}
         public string? FullName => $"{FirstName} {LastName}";

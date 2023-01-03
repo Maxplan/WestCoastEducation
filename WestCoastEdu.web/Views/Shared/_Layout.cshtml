@@ -13,9 +13,14 @@
             <p class="NavTagName">West Coast</p>
             <p class="NavTagSubName">Education</p>
         </div>
+        <div class="CurrentNav">
+            <p class="NavTagName">@ViewData["Title"]</p>
+        </div>
         <div class="NavMenu">
             <p class="NavMenuItem">@Html.ActionLink("Home", "Index", "Home")</p>
-            <p class="NavMenuItem">@Html.ActionLink("Courses", "Courses", "Home")</p>
+            <p class="NavMenuItem">@Html.ActionLink("Courses", "Index", "Courses")</p>
+            <p class="NavMenuItem">@Html.ActionLink("Admin", "Index", "Administration")</p>
+            <p class="NavMenuItem">@Html.ActionLink("Error", "Error", "Administration")</p>
         </div>
     </nav>
 
