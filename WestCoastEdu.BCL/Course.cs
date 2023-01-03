@@ -15,6 +15,8 @@ namespace WestCoastEdu.BCL
         public DateTime EndDate { get; private set; } = new DateTime();
         public List<Account> SignedUpStudents { get; private set; } = new List<Account>(); // List all students that has signed up for the course
         public List<Teacher> Teachers { get; private set; } = new List<Teacher>(); // List of teacher/-s of the course
+        public string? CourseDescription { get; set; }
+
         public Course(string courseName, bool onDemand, bool isDistance, DateTime startDate, DateTime endDate) // Constructor as all parameters are need to create a complete course object
         {
             CourseName = courseName;
