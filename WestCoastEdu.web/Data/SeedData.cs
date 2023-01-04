@@ -24,17 +24,4 @@ public static class SeedData
             await context.SaveChangesAsync();
         }
     }
-    public static async Task LoadAccountData(WestCoastEduContext context)
-    {
-        var options = new JsonSerializerOptions{
-            PropertyNameCaseInsensitive = true
-        };
-        if (context.Accounts.Any()) return;
-        var json = System.IO.File.ReadAllText("Data/json/Account.json");
-        var accounts = JsonSerializer.Deserialize<List<Account>>(json, options);
-        if(accounts is not null && accounts.Count > 0){
-            await context.Accounts.AddRangeAsync(accounts);
-            await context.SaveChangesAsync();
-        }
-    }
 }
