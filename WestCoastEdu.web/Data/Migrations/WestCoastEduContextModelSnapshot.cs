@@ -38,32 +38,6 @@ namespace WestCoastEdu.web.Data.Migrations
 
                     b.ToTable("Courses");
                 });
-
-            modelBuilder.Entity("WestCoastEdu.web.Models.Account", b =>
-                {
-                    b.Property<int>("AccountId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("AccountRole")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("AccountId");
-
-                    b.ToTable("Students");
-                });
 #pragma warning restore 612, 618
         }
     }

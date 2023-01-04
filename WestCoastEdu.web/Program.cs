@@ -22,9 +22,7 @@ try
 {
     var context = services.GetRequiredService<WestCoastEduContext>();
     await context.Database.MigrateAsync();
-    await SeedData.LoadAccountData(context);
     await SeedData.LoadCourseData(context);
-
 }
 catch (Exception ex)
 {
