@@ -13,7 +13,7 @@ namespace WestCoastEdu.BCL
         public bool IsDistance {get; private set;} // Distance or classroom bound?
         public DateTime StartDate { get; private set; } = new DateTime();
         public DateTime EndDate { get; private set; } = new DateTime();
-        public List<Account> SignedUpStudents { get; private set; } = new List<Account>(); // List all students that has signed up for the course
+        public List<IAccount> SignedUpStudents { get; private set; } = new List<IAccount>(); // List all students that has signed up for the course
         public List<Teacher> Teachers { get; private set; } = new List<Teacher>(); // List of teacher/-s of the course
         public string? CourseDescription { get; set; }
 

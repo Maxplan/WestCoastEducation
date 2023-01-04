@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WestCoastEdu.BCL
 {
-    public abstract class Account
+    public abstract class IAccount
     {
         //Properties
         public int AccountId { get; init; }

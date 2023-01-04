@@ -14,9 +14,4 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\WestCoastEdu.BCL\WestCoastEdu.BCL.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace WestCoastEdu.BCL
 {
-    public class Administrator : Account
+    public class Administrator : IAccount
     {
-        public Account Find()
+        public IAccount Find()
         {
             return new Administrator();
         }

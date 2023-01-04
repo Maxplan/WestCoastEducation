@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WestCoastEdu.BCL
 {
-    public class Teacher : Account
+    public class Teacher : IAccount
     {
         public List<Course> CoursesTaught { get; set; } = new List<Course>();
         // Denna constructor sätter även ett guid eftersom det är specat i properties.

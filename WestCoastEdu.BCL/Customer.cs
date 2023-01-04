@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WestCoastEdu.BCL
 {
-    public class Customer : Account
+    public class Customer : IAccount
     {
         public List<Course> ActiveCourses = new List<Course>(); // list of bought and active Courses
         public List<Course> CompletedCourses = new List<Course>(); // List of completed courses

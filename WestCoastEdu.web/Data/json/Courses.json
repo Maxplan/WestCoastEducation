@@ -1,0 +1,23 @@
+[
+    {
+        "courseId": 0,
+        "courseName": "Dynamiska websystem 1",
+        "startDate": "Tue Aug 17 2023",
+        "endDate": "Wed Sep 17 2023",
+        "courseDescription": "Grundkurs steg 1 Dynamiska websystem"
+    },
+    {
+        "courseId": 1,
+        "courseName": "Dynamiska websystem 2",
+        "startDate": "Mon Apr 3 2023",
+        "endDate": "Fri May 5 2023",
+        "courseDescription": "Grundkurs steg 2 Dynamiska websystem"
+    },
+    {
+        "courseId": 2,
+        "courseName": "Javascript 1",
+        "startDate": "Mon Dec 17 2022",
+        "endDate": "Fri Feb 1 2023",
+        "courseDescription": "Grundkurs i JavaScript"
+    }
+  ]

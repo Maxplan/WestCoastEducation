@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WestCoastEdu.BCL
 {
-    public class EducationDirector : Account
+    public class EducationDirector : IAccount
     {
         public void DeleteCourse(){}
         public void CreateCourse(){}
