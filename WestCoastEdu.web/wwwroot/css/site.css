@@ -39,6 +39,14 @@ body{
   align-items: center;
   height: 86vh;
 }
+.MainContainerAdmin{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 86vh;
+  background-color: #7f7f7f;
+}
 .FooterContainer{
   position: absolute;
   width: 100vw;
@@ -63,7 +71,7 @@ body{
 .CourseLinkText{
   font-size: 1em;
 }
-.CourseLinkBtn{
+.LinkBtn{
   display: flex;
   justify-content: center;
   border: 1px solid #7f7f7f;
@@ -76,7 +84,7 @@ body{
   transition: color 250ms ease-out;
   border-radius: 5px;
 }
-.CourseLinkBtn:hover{
+.LinkBtn:hover{
   background-color: #d6c1b3;
 }
 a:link {
@@ -109,22 +117,7 @@ a:active {
 .CourseLocation, .AvailableSpots{
   margin: 0em 0.5em;
 }
-.HomeLinkBtn{
-  display: flex;
-  justify-content: center;
-  border: 1px solid #7f7f7f;
-  background: #DDD0C8;
-  margin: 3em 1em;
-  padding: 0.5em 1em;
-  font-size: 1em;
-  width: 8em;
-  cursor: pointer;
-  transition: color 250ms ease-out;
-  border-radius: 5px;
-}
-.HomeLinkBtn:hover{
-  background-color: #d6c1b3;
-}
+
 
 .NavTag{
   display: flex;
@@ -139,4 +132,36 @@ a:active {
   margin-left: 0.25em;
   font-size: 1.25em;
   font-weight: 400;
+}
+.Table{
+  background-color: #fcffbb;
+  border-collapse: collapse;
+}
+.TableHeader th{
+  background-color: #eff571;
+  text-align: start;
+  padding: 0 0.75em;
+}
+.TableBody td{
+  color: rgb(71, 71, 71);
+  padding: 0.25em 0.75em;
+}
+.TableFooter td{
+  background-color: #eff571;
+}
+.EditIcon{
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+.EditIcon i{
+  color: rgb(91, 70, 255);
+}
+.DeleteIcon{
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+.DeleteIcon i{
+  color: rgb(232, 87, 87);
 }

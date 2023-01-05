@@ -1,50 +1,50 @@
 [
   {
-    "courseId": 0,
+    "id": 0,
     "courseName": "JavaScript 1",
-    "courseTitle": "TMBJE73T0F9025084",
+    "courseTitle": "JS 1",
     "startDate": "February 1, 2023",
     "endDate": "April 1, 2023",
-    "courseDescription": "Nulla hendrerit varius nisl, sed porta nunc. Nunc viverra, enim eget consequat placerat, justo sapien volutpat leo, vel mattis lectus massa eu diam. Donec molestie tempor dolor eget maximus. Phasellus porttitor non neque sit amet finibus. Morbi pulvinar, nibh nec bibendum tincidunt."
+    "courseDescription": "Nulla hendrerit ."
   },
   {
-    "courseId": 1,
+    "id": 1,
     "courseName": "JavaScript 2",
-    "courseTitle": "TMBJE73T0F9025084",
+    "courseTitle": "JS 2",
     "startDate": "April 8, 2023",
     "endDate": "June 1, 2023",
-    "courseDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut eleifend mi, eget auctor mauris. Etiam sed diam sit amet tortor tempus elementum et a justo. Integer maximus tincidunt nulla, vitae sollicitudin mi mollis ac."
+    "courseDescription": "Lorem ipsum ."
   },
   {
-    "courseId": 2,
+    "id": 2,
     "courseName": ".NET MVC 1",
-    "courseTitle": "Webbutveckling med razor pages",
+    "courseTitle": "C# Basic 1",
     "startDate": "February 21, 2023",
     "endDate": "may 15, 2023",
-    "courseDescription": "Phasellus nisi nunc, hendrerit eget lacus vitae, tincidunt bibendum justo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    "courseDescription": "Phasellus nisi."
   },
   {
-    "courseId": 3,
+    "id": 3,
     "courseName": ".NET MVC 2",
-    "courseTitle": "Webbutveckling med razor pages, fortsättning",
+    "courseTitle": "C# Basic 2",
     "startDate": "September 1, 2023",
     "endDate": "November 12, 2023",
-    "courseDescription": "In pulvinar metus et condimentum consequat. Mauris nec sapien et nibh sollicitudin maximus. Suspendisse sollicitudin tempor nibh a vehicula."
+    "courseDescription": "et condimentum."
   },
   {
-    "courseId": 4,
-    "courseName": "Fundamentals OOP",
-    "courseTitle": "Grundkurs .NET Framework, C#",
+    "id": 4,
+    "courseName":  "OOP",
+    "courseTitle": ".NET Framework",
     "startDate": "November 13, 2023",
     "endDate": "December 1, 2023",
-    "courseDescription": "SKODA, SUPERB"
+    "courseDescription": "In pulvinar."
   },
   {
-    "courseId": 5,
+    "id": 5,
     "courseName": "Advanced OOP",
-    "courseTitle": "Avancerad C# i .NET Core",
+    "courseTitle": "C# .NET-Core",
     "startDate": "December 2, 2023",
     "endDate": "January 1, 2024",
-    "courseDescription": "Vivamus sagittis suscipit erat, non efficitur ligula. Nullam rutrum ex sit amet viverra convallis. Aliquam volutpat, mi eu rutrum bibendum, ligula nisl elementum velit, vitae posuere mauris risus ac nisi."
+    "courseDescription": "Vivamus sagittis."
   }
 ]

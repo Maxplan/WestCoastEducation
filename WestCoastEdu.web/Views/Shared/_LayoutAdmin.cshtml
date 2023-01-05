@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/55174c58a9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WestCoastEdu.web.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - West Coast Education</title>
+</head>
+<body>
+    <header>
+        <nav class="NavContainer">
+                <a class="NavTag" asp-action="Index" asp-controller="Home">
+                    <span class="NavTagName"><i class="fa-solid fa-graduation-cap"></i></span>
+                    <p class="NavTagName">West Coast</p>
+                    <p class="NavTagSubName">Education</p>
+                </a>
+            <div class="CurrentNav">
+                <p class="NavTagName">@ViewData["Title"]</p>
+            </div>
+            <div class="NavMenu">
+                <li class="NavMenuItem"><a asp-action="Index" asp-controller="Admin">Hem</a></li>
+                <li class="NavMenuItem"><a asp-action="Index" asp-controller="CoursesAdmin">Kurser</a></li>
+                <li class="NavMenuItem"><a asp-action="Index" asp-controller="AccountsAdmin">Konton</a></li>
+                <li class="NavMenuItem"><a asp-action="Index" asp-controller="Home"><i class="fa-regular fa-house"></i></a></li>  
+            </div>
+        </nav>
+    </header>
+    <div class="MainContainerAdmin">
+        <main class="MainContent">
+            @RenderBody()
+        </main>
+    </div>
+    
+</body>

@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WestCoastEdu.web.Controllers;
 
-[Route("admin")]
-public class AdminController : Controller
+[Route("accountsadmin")]
+public class AccountsAdminController : Controller
 {
     public IActionResult Index()
     {

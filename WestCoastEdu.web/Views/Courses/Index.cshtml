@@ -1,25 +1,15 @@
+@model IList<WestCoastEdu.web.Models.Course>
 @{
     ViewData["Title"] = "Courses";
 }
-
+<h1 class="CourseText">Here a list of all our available courses</h1>
 <div class="CoursesContainer">
-    <h1 class="CourseText">Here a list of all our available courses</h1>
-    <div class="CoursesContainer">
-        <div class="CourseItem">
-            <h3 class="CourseTitle">Swedish</h3>
-            <h4 class="CourseLocation">Distance</h4>
-            <p class="AvailableSpots">Available Spots: x</p>
-        </div>
-        <div class="CourseItem">
-            <h3 class="CourseTitle">Computer Science</h3>
-            <h4 class="CourseLocation">Distance</h4>
-            <p class="AvailableSpots">Available Spots: </p>
-        </div>
-        <div class="CourseItem">
-            <h3 class="CourseTitle">English</h3>
-            <h4 class="CourseLocation">On Site</h4>
-            <p class="AvailableSpots">Available Spots: y</p>
-        </div>
-    </div>
-    <button class="HomeLinkBtn">@Html.ActionLink("Home", "Index", "Home")</button>
+    @foreach (var course in Model)
+        {
+            <div>
+                <a asp-action="#" asp-route-CourseId=@course.CourseId>@course.CourseTitle - @course.CourseName -
+                    @course.CourseDescription</a>
+            </div>
+        }
 </div>
+<a class="LinkBtn" asp-action="Index" asp-controller="Home">Home</a>

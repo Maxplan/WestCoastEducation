@@ -5,7 +5,7 @@
 namespace WestCoastEdu.web.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class intialCreate : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

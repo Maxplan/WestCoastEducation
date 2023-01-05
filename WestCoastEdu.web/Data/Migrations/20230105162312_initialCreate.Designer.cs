@@ -10,8 +10,8 @@ using WestCoastEdu.web.Data;
 namespace WestCoastEdu.web.Data.Migrations
 {
     [DbContext(typeof(WestCoastEduContext))]
-    [Migration("20230104235805_intialCreate")]
-    partial class intialCreate
+    [Migration("20230105162312_initialCreate")]
+    partial class initialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
