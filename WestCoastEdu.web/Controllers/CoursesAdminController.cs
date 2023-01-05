@@ -62,4 +62,17 @@ public class CoursesAdminController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    [Route("delete/{courseId}")]
+    public async Task<IActionResult> Delete(int courseId)
+    {
+        var courseToDelete = await _context.Courses.SingleOrDefaultAsync(c => c.CourseId == courseId);
+
+        if(courseToDelete is null) return RedirectToAction(nameof(Index));
+
+        _context.Courses.Remove(courseToDelete);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
+    }
 }
