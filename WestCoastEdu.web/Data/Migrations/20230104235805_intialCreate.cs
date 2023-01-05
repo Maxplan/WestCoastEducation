@@ -5,7 +5,7 @@
 namespace WestCoastEdu.web.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialCreate : Migration
+    public partial class intialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,10 +16,11 @@ namespace WestCoastEdu.web.Data.Migrations
                 {
                     CourseId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CourseName = table.Column<string>(type: "TEXT", nullable: true),
-                    StartDate = table.Column<string>(type: "TEXT", nullable: true),
-                    EndDate = table.Column<string>(type: "TEXT", nullable: true),
-                    CourseDescription = table.Column<string>(type: "TEXT", nullable: true)
+                    CourseName = table.Column<string>(type: "TEXT", nullable: false),
+                    CourseTitle = table.Column<string>(type: "TEXT", nullable: false),
+                    StartDate = table.Column<string>(type: "TEXT", nullable: false),
+                    EndDate = table.Column<string>(type: "TEXT", nullable: false),
+                    CourseDescription = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

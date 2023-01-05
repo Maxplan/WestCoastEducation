@@ -1,9 +1,12 @@
-namespace WestCoastEdu.web;
-public class Course
+namespace WestCoastEdu.web.Models
 {
-    public int CourseId { get; init; }
-    public string? CourseName { get; private set; }
-    public string? StartDate { get; private set; }
-    public string? EndDate { get; private set; }
-    public string? CourseDescription { get; set; }
+    public class Course
+    {
+        public int CourseId { get; set; }
+        public string CourseName { get; set; } = "";
+        public string CourseTitle { get; set; } = "";
+        public string StartDate { get; set; } = "";
+        public string EndDate { get; set; } = "";
+        public string CourseDescription { get; set; } = "";
+    }
 }
