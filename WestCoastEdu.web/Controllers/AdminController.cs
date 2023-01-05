@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WestCoastEdu.web.Controllers;
 
-public class AdministrationController : Controller
+public class AdminController : Controller
 {
     public IActionResult Index()
     {
-        return View("Administration");
+        return View("Index");
     }
     public IActionResult Error()
     {

@@ -4,11 +4,10 @@ using WestCoastEdu.web.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//Add Database Support
+// Add database support...
 builder.Services.AddDbContext<WestCoastEduContext>(options =>
-{
-    options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite"));
-});
+    options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite"))
+);
 
 builder.Services.AddControllersWithViews();
 
@@ -26,7 +25,7 @@ try
 }
 catch (Exception ex)
 {
-    Console.WriteLine("{0} - {1}",ex.Message, ex.InnerException!.Message);
+    Console.WriteLine("{0} - {1}", ex.Message, ex.InnerException!.Message);
     throw;
 }
 

@@ -10,8 +10,8 @@ using WestCoastEdu.web.Data;
 namespace WestCoastEdu.web.Data.Migrations
 {
     [DbContext(typeof(WestCoastEduContext))]
-    [Migration("20230104203335_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20230104235805_intialCreate")]
+    partial class intialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,22 +19,30 @@ namespace WestCoastEdu.web.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
 
-            modelBuilder.Entity("WestCoastEdu.web.Course", b =>
+            modelBuilder.Entity("WestCoastEdu.web.Models.Course", b =>
                 {
                     b.Property<int>("CourseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CourseDescription")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CourseName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourseTitle")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EndDate")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("StartDate")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("CourseId");
