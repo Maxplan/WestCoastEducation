@@ -1,0 +1,50 @@
+@model IList<WestCoastEdu.web.Models.Course>;
+@{
+    ViewData["Title"] = "CoursesAdmin";
+    Layout = "_LayoutAdmin";
+}
+<h1>Dashboard Kurser</h1>
+<div class="TableContainer">
+    <div>
+        <a class="LinkBtn" asp-action="Create" asp-controller="CoursesAdmin">Create</a>
+    </div>
+    <table class="Table">
+        <thead class="TableHeader">
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>Namn</th>
+                <th>Titel</th>
+                <th>Beskrivning</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="TableBody">
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td class="EditIcon">
+                        <a asp-action="Edit" asp-controller="CoursesAdmin" asp-route-courseId=@course.CourseId><i class="fa-regular fa-pen"></i></a>
+                    </td>
+                    <td>@course.CourseId</td>
+                    <td>@course.CourseName</td>
+                    <td>@course.CourseTitle</td>
+                    <td>@course.CourseDescription</td>
+                    <td class="DeleteIcon">
+                        <a asp-action="Delete" asp-controller="CoursesAdmin" asp-route-courseId=@course.CourseId><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="TableFooter">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
