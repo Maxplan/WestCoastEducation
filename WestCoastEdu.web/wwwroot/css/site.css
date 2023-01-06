@@ -4,15 +4,24 @@
   margin: 0;
   box-sizing: border-box;
   font-family: 'nunito', sans-serif;
-  color: #323232;
+  color: #fff;
 }
 body{
   min-height: 100vh;
   min-width: 100vw;
-  background-color: #DDD0C8;
+  background-color: #8B74BD;
 }
 .NavContainer{
-  background-color: #d6c1b3;
+  background-color: #663399;
+  width: 100vw;
+  height: 6vh;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0em 1.5em;
+}
+.NavContainerAdmin{
+  background-color: #22277A;
   width: 100vw;
   height: 6vh;
   align-items: center;
@@ -28,7 +37,6 @@ body{
   align-items: center;
 }
 .NavMenu a{
-  color: rgb(53, 53, 53);
   text-decoration: none;
   font-size: 1.25em;
 }
@@ -37,22 +45,45 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 86vh;
+  min-height: 94vh;
 }
 .MainContainerAdmin{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 86vh;
-  background-color: #7f7f7f;
+  background-color: #4066E0;
+  text-align: center;
+  min-height: 94vh;
+}
+.MainContentAdmin{
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.MainContent{
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .FooterContainer{
   position: absolute;
   width: 100vw;
   display: flex;
   justify-content: center;
-  background-color: #d6c1b3;
+  background-color: #663399;
+  height: auto;
+}
+.FooterContainerAdmin{
+  position: absolute;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  background-color: #22277A;
   height: auto;
 }
 .FooterContentItem{
@@ -74,18 +105,40 @@ body{
 .LinkBtn{
   display: flex;
   justify-content: center;
-  border: 1px solid #7f7f7f;
-  background: #DDD0C8;
+  border: 1px solid #663399;
+  background: #7953A9;
   margin: 0em 1em;
   padding: 0.5em 1em;
   font-size: 1em;
   width: 8em;
   cursor: pointer;
   transition: color 250ms ease-out;
-  border-radius: 5px;
 }
 .LinkBtn:hover{
-  background-color: #d6c1b3;
+  background-color: #7750a5;
+}
+.LinkBtnAdmin:hover{
+  background-color: #202471;
+}
+.LinkBtnAdmin{
+  display: flex;
+  justify-content: center;
+  border: 1px solid #363636;
+  background: #22277A;
+  padding: 0.75em;
+  margin: 0.5em 0 1em 0 ;
+  font-size: 1em;
+  width: 100%;
+  cursor: pointer;
+  transition: color 250ms ease-out;
+  align-items: center;
+}
+.LinkBtnAdmin i{
+margin-right: 0.5em;
+}
+.LinkBtnAdminCountainer{
+  min-width: 40vw;
+  max-width: 85vw;
 }
 a:link {
   text-decoration: none;
@@ -100,10 +153,10 @@ a:active {
   text-decoration: none;
 }
 .CoursesContainer{
-  margin-top: 4em;
+  margin: 0.5em 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 .CourseItem{
   background-color: #d6c1b3;
@@ -117,8 +170,6 @@ a:active {
 .CourseLocation, .AvailableSpots{
   margin: 0em 0.5em;
 }
-
-
 .NavTag{
   display: flex;
   align-items: baseline;
@@ -134,11 +185,15 @@ a:active {
   font-weight: 400;
 }
 .Table{
-  background-color: #fcffbb;
+  background-color: #d0d4ff;
   border-collapse: collapse;
+  min-width: 60vw;
+  max-width: 75vw;
+  text-align: start;
 }
 .TableHeader th{
-  background-color: #eff571;
+  background-color: #22277A;
+  color: #B9BFFF;
   text-align: start;
   padding: 0 0.75em;
 }
@@ -147,12 +202,15 @@ a:active {
   padding: 0.25em 0.75em;
 }
 .TableFooter td{
-  background-color: #eff571;
+  background-color: #22277A;
 }
 .EditIcon{
   padding: 0;
   display: flex;
   justify-content: center;
+}
+input{
+  color: black;
 }
 .EditIcon i{
   color: rgb(56, 56, 56);
@@ -164,4 +222,36 @@ a:active {
 }
 .DeleteIcon i{
   color: rgb(232, 87, 87);
+}
+.EditForm{
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  min-width: 50vw;
+}
+.EditForm label{
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  margin-top: 0.25em 0 0 0;
+}
+.EditForm input{
+  width: 100%;
+}
+.SubmitDiv{
+  margin-top: 0.5em;
+}
+.AdminDashboard{
+  display: flex;
+  min-width: 50vw;
+  justify-content: center;
+}
+.DashboardCard{
+  background-color: #22267a50;
+  width: 10em;
+  height: 10em;
+  margin: 1em;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
