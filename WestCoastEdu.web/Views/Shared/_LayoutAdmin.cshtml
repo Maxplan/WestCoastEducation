@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="NavContainer">
+        <nav class="NavContainerAdmin">
                 <a class="NavTag" asp-action="Index" asp-controller="Home">
                     <span class="NavTagName"><i class="fa-solid fa-graduation-cap"></i></span>
                     <p class="NavTagName">West Coast</p>
@@ -28,9 +28,8 @@
         </nav>
     </header>
     <div class="MainContainerAdmin">
-        <main class="MainContent">
+        <main class="MainContentAdmin">
             @RenderBody()
         </main>
     </div>
-    
 </body>

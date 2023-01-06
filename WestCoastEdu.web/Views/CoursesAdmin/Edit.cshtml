@@ -5,7 +5,7 @@
     Layout = "_LayoutAdmin";
 }
 <h1 class="WelcomeText">Edit Course</h1>
-<form asp-action="edit" asp-controller="CoursesAdmin" asp-route-courseId=@Model.CourseId method="post">
+<form asp-action="edit" asp-controller="CoursesAdmin" asp-route-courseId=@Model.CourseId method="post" class="EditForm">
     <div class="FormControl">
         <label for="">Course Name</label>
         <input asp-for="CourseName"/>
@@ -27,7 +27,7 @@
         <input asp-for="CourseDescription"/>
     </div>
     <div class="FormControl">
-        <button type="submit" class="LinkBtn"><i class="fa-solid fa-save"></i>Save</button>
-        <a asp-action="Index" asp-controller="CoursesAdmin" class="LinkBtn"><i class="fa-solid fa-arrow-left"></i>Cancel</a>
+        <button type="submit" class="LinkBtnAdmin"><i class="fa-solid fa-save"></i>Save</button>
+        <a asp-action="Index" asp-controller="CoursesAdmin" class="LinkBtnAdmin"><i class="fa-solid fa-arrow-left"></i>Cancel</a>
     </div>
 </form>

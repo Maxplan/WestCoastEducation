@@ -5,7 +5,7 @@
     Layout = "_LayoutAdmin";
 }
 <h1 class="WelcomeText">Edit Account</h1>
-<form asp-action="edit" asp-controller="AccountsAdmin" asp-route-accountId=@Model.AccountId method="post">
+<form asp-action="edit" asp-controller="AccountsAdmin" asp-route-accountId=@Model.AccountId method="post" class="EditForm">
     <div class="FormControl">
         <label for="">Full Name</label>
         <input asp-for="FullName"/>
@@ -23,7 +23,7 @@
         <input asp-for="AccountType"/>
     </div>
     <div class="FormControl">
-        <button type="submit" class="LinkBtn"><i class="fa-solid fa-save"></i>Save</button>
-        <a asp-action="Index" asp-controller="AccountsAdmin" class="LinkBtn"><i class="fa-solid fa-arrow-left"></i>Cancel</a>
+        <button type="submit" class="LinkBtnAdmin"><i class="fa-solid fa-save"></i>Save</button>
+        <a asp-action="Index" asp-controller="AccountsAdmin" class="LinkBtnAdmin"><i class="fa-solid fa-arrow-left"></i>Cancel</a>
     </div>
 </form>
