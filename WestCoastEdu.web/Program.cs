@@ -22,6 +22,7 @@ try
     var context = services.GetRequiredService<WestCoastEduContext>();
     await context.Database.MigrateAsync();
     await SeedData.LoadCourseData(context);
+    await SeedData.LoadAccountData(context);
 }
 catch (Exception ex)
 {

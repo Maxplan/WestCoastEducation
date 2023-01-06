@@ -1,0 +1,23 @@
+[
+  {
+    "userId": 0,
+    "fullName": "Ran Dom",
+    "email": "Random@gmail.com",
+    "phone": "0722990001",
+    "accountType": "Student"
+  },
+  {
+    "userId": 1,
+    "fullName": "Max Planstedt",
+    "email": "Max@gmail.com",
+    "phone": "0724960003",
+    "accountType": "Student"
+  },
+  {
+    "userId": 2,
+    "fullName": "Jonna Pettersson",
+    "email": "Jonnap@gmail.com",
+    "phone": "0733006060",
+    "accountType": "Teacher"
+  }
+]
