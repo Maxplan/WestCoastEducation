@@ -1,0 +1,29 @@
+@model WestCoastEdu.web.Models.Account
+
+@{
+    ViewData["Title"] = "Edit Account";
+    Layout = "_LayoutAdmin";
+}
+<h1 class="WelcomeText">Edit Account</h1>
+<form asp-action="edit" asp-controller="AccountsAdmin" asp-route-accountId=@Model.AccountId method="post">
+    <div class="FormControl">
+        <label for="">Full Name</label>
+        <input asp-for="FullName"/>
+    </div>
+    <div class="FormControl">
+        <label for="">Email</label>
+        <input asp-for="Email"/>
+    </div>
+    <div class="FormControl">
+        <label for="">Phone</label>
+        <input asp-for="Phone"/>
+    </div>
+    <div class="FormControl">
+        <label for="">Account Type</label>
+        <input asp-for="AccountType"/>
+    </div>
+    <div class="FormControl">
+        <button type="submit" class="LinkBtn"><i class="fa-solid fa-save"></i>Save</button>
+        <a asp-action="Index" asp-controller="AccountsAdmin" class="LinkBtn"><i class="fa-solid fa-arrow-left"></i>Cancel</a>
+    </div>
+</form>

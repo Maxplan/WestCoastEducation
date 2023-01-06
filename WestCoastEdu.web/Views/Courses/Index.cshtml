@@ -4,11 +4,11 @@
 }
 <h1 class="CourseText">Here a list of all our available courses</h1>
 <div class="CoursesContainer">
-    @foreach (var course in Model)
+    @foreach (var account in Model)
         {
             <div>
-                <a asp-action="#" asp-route-CourseId=@course.CourseId>@course.CourseTitle - @course.CourseName -
-                    @course.CourseDescription</a>
+                <a asp-action="#" asp-route-CourseId=@account.CourseId>@account.CourseTitle - @account.CourseName -
+                    @account.CourseDescription</a>
             </div>
         }
 </div>

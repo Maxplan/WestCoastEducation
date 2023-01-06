@@ -20,18 +20,18 @@
             </tr>
         </thead>
         <tbody class="TableBody">
-            @foreach (var course in Model)
+            @foreach (var account in Model)
             {
                 <tr>
                     <td class="EditIcon">
-                        <a asp-action="Edit" asp-controller="CoursesAdmin" asp-route-courseId=@course.CourseId><i class="fa-regular fa-pen"></i></a>
+                        <a asp-action="Edit" asp-controller="CoursesAdmin" asp-route-courseId=@account.CourseId><i class="fa-regular fa-pen"></i></a>
                     </td>
-                    <td>@course.CourseId</td>
-                    <td>@course.CourseName</td>
-                    <td>@course.CourseTitle</td>
-                    <td>@course.CourseDescription</td>
+                    <td>@account.CourseId</td>
+                    <td>@account.CourseName</td>
+                    <td>@account.CourseTitle</td>
+                    <td>@account.CourseDescription</td>
                     <td class="DeleteIcon">
-                        <a asp-action="Delete" asp-controller="CoursesAdmin" asp-route-courseId=@course.CourseId><i class="fa-solid fa-trash"></i></a>
+                        <a asp-action="Delete" asp-controller="CoursesAdmin" asp-route-courseId=@account.CourseId><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
             }

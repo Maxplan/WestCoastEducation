@@ -26,4 +26,25 @@ public static class SeedData
             await context.SaveChangesAsync();
         }
     }
+    public static async Task LoadAccountData(WestCoastEduContext context)
+    {
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        // Vill endast ladda data om databasens tabell är tom...
+        if (context.Accounts.Any()) return;
+
+        // Läsa in json datat...
+        var json = System.IO.File.ReadAllText("Data/json/accounts.json");
+        // Konvertera json objekten till en lista av Course objekt...
+        var accounts = JsonSerializer.Deserialize<List<Account>>(json, options);
+
+        if (accounts is not null && accounts.Count > 0)
+        {
+            await context.Accounts.AddRangeAsync(accounts);
+            await context.SaveChangesAsync();
+        }
+    }
 }

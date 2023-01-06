@@ -1,5 +1,52 @@
+@model IList<WestCoastEdu.web.Models.Account>;
 @{
-    ViewData["Title"] = "AccountsAdmin";
+    ViewData["Title"] = "AccountAdmin";
     Layout = "_LayoutAdmin";
 }
-<h1>AccountsAdmin Index</h1>
+<h1>Dashboard Kurser</h1>
+<div class="TableContainer">
+    <div>
+        <a class="LinkBtn" asp-action="Create" asp-controller="AccountsAdmin">Create</a>
+    </div>
+    <table class="Table">
+        <thead class="TableHeader">
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>Namn</th>
+                <th>Email</th>
+                <th>Telefon</th>
+                <th>Kontotyp</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="TableBody">
+            @foreach (var account in Model)
+            {
+                <tr>
+                    <td class="EditIcon">
+                        <a asp-action="Edit" asp-controller="AccountsAdmin" asp-route-accountId=@account.AccountId><i class="fa-regular fa-pen"></i></a>
+                    </td>
+                    <td>@account.AccountId</td>
+                    <td>@account.FullName</td>
+                    <td>@account.Email</td>
+                    <td>@account.Phone</td>
+                    <td>@account.AccountType</td>
+                    <td class="DeleteIcon">
+                        <a asp-action="Delete" asp-controller="AccountsAdmin" asp-route-accountId=@account.AccountId><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="TableFooter">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
