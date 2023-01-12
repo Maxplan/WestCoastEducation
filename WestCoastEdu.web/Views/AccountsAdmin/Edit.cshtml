@@ -1,4 +1,4 @@
-@model WestCoastEdu.web.Models.Account
+@model WestCoastEdu.web.ViewModels.AccountUpdateViewModel
 
 @{
     ViewData["Title"] = "Edit Account";
@@ -7,20 +7,24 @@
 <h1 class="WelcomeText">Edit Account</h1>
 <form asp-action="edit" asp-controller="AccountsAdmin" asp-route-accountId=@Model.AccountId method="post" class="EditForm">
     <div class="FormControl">
-        <label for="">Full Name</label>
+        <label asp-for="FullName"></label>
         <input asp-for="FullName"/>
+        <span class="error" asp-validation-for="FullName"></span>
     </div>
     <div class="FormControl">
-        <label for="">Email</label>
+        <label asp-for="Email"></label>
         <input asp-for="Email"/>
+        <span class="error" asp-validation-for="Email"></span>
     </div>
     <div class="FormControl">
-        <label for="">Phone</label>
+        <label asp-for="Phone"></label>
         <input asp-for="Phone"/>
+        <span class="error" asp-validation-for="Phone"></span>
     </div>
     <div class="FormControl">
-        <label for="">Account Type</label>
+        <label asp-for="AccountType"></label>
         <input asp-for="AccountType"/>
+        <span class="error" asp-validation-for="AccountType"></span>
     </div>
     <div class="FormControl">
         <button type="submit" class="LinkBtnAdmin"><i class="fa-solid fa-save"></i>Save</button>

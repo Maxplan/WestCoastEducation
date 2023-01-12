@@ -1,77 +1,206 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WestCoastEdu.web.Data;
+using WestCoastEdu.web.Interfaces;
 using WestCoastEdu.web.Models;
+using WestCoastEdu.web.ViewModels;
 
 namespace WestCoastEdu.web.Controllers;
 
 [Route("accounts/admin")]
 public class AccountsAdminController : Controller
 {
-    private readonly WestCoastEduContext _context;
+    private readonly IAccountRepository _repo;
 
-    public AccountsAdminController(WestCoastEduContext context)
-    {
-        _context = context;     
+    public AccountsAdminController(IAccountRepository repo)
+    {  
+        _repo = repo;  
     }
 
     public async Task<IActionResult> Index()
     {
-        var accounts = await _context.Accounts.ToListAsync();
-        return View("Index", accounts);
+        try
+        {
+            var accounts = await _repo.ListAllAsync();
+
+            var model = accounts.Select(a => new AccountListViewModel{
+                AccountId = a.AccountId,
+                FullName = a.FullName,
+                Email = a.Email,
+                Phone = a.Phone,
+                AccountType = a.AccountType
+            }).ToList();
+
+            return View("Index", model);
+        }
+        catch (Exception ex)
+        {
+            
+            var error = new ErrorModel{
+                ErrorMessage = ex.Message
+            };
+            return View("_Error", error);
+        }
     }
 
     [HttpGet("create")]
     public IActionResult Create(){
-        var account = new Account();
+        var account = new AccountPostViewModel();
         return View("Create", account);
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> Create(Account account){
-        await _context.Accounts.AddAsync(account);
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+    public async Task<IActionResult> Create(AccountPostViewModel account){
+        try
+        {
+            if (!ModelState.IsValid) return View("Create", account);
+
+            var emailExists = await _repo.FindByEmailAsync(account.Email);
+
+            if (emailExists is not null)
+            {
+                var createError = new ErrorModel
+                {
+                    ErrorTitle = "Something Went Wrong When Trying To Create Account",
+                    ErrorMessage = $"There's already an Account for ''{account.Email}''"
+                };
+                return View("_Error", createError);
+            }
+            
+            var accountToAdd = new Account
+            {
+                FullName = account.FullName,
+                Email = account.Email,
+                Phone = account.Phone,
+                AccountType = account.AccountType
+            };
+
+            if(await _repo.AddAsync(accountToAdd)){
+                if(await _repo.SaveAsync()){
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+
+            var error = new ErrorModel
+            {
+                ErrorTitle = "Something went wrong when trying to create a new account",
+                ErrorMessage = "IS WONG"
+            };
+            return View("_Error", error);
+        }
+        catch (Exception ex)
+        {
+            var error = new ErrorModel
+                {
+                    ErrorTitle = "Something went wrong when trying to create a new account",
+                    ErrorMessage = ex.Message
+                };
+                return View("_Error", error);
+        }
+  
     }
 
     [HttpGet("edit/{accountId}")]
     public async Task<IActionResult> Edit(int accountId)
     {
-        var account = await _context.Accounts.SingleOrDefaultAsync(c => c.AccountId == accountId);
+        try
+        {    
+            var result = await _repo.FindByIdAsync(accountId);
 
-        if(account is not null) return View("Edit", account);
+            if(result is null){
+                var error = new ErrorModel
+                {
+                    ErrorTitle = "Something went wrong when trying to fetch account",
+                    ErrorMessage = $"There's not an account with ID: {accountId}"
+                }; 
+                return View("_Error", error);
+            }
 
-        return Content("Error...");
+            var model = new AccountUpdateViewModel{
+                AccountId = result.AccountId,
+                FullName = result.FullName,
+                Email = result.Email,
+                Phone = result.Phone,
+                AccountType = result.AccountType
+            };
+
+            return View("Edit", model);
+        }
+        catch (Exception ex)
+        {
+            var error = new ErrorModel{
+                ErrorTitle = "Something went wrong when trying to fetch the account",
+                ErrorMessage = ex.Message
+            };
+            return View("_Error", error);
+        }
     }
 
     [HttpPost("edit/{accountId}")]
-    public async Task<IActionResult> Edit(int accountId, Account account)
+    public async Task<IActionResult> Edit(int accountId, AccountUpdateViewModel model)
     {
-        var accountToUpdate = _context.Accounts.SingleOrDefault(c => c.AccountId == accountId);
+        try
+        {
+            if(!ModelState.IsValid) return View("Edit", model);
 
-        if(accountToUpdate is null) return RedirectToAction(nameof(Index));
+            var accountToUpdate = await _repo.FindByIdAsync(accountId);
 
-        accountToUpdate.FullName = account.FullName;
-        accountToUpdate.Email = account.Email;
-        accountToUpdate.Phone = account.Phone;
-        accountToUpdate.AccountType = account.AccountType;
+            if(accountToUpdate is null) return RedirectToAction(nameof(Index));
 
-        _context.Accounts.Update(accountToUpdate);
-        await _context.SaveChangesAsync();
+            accountToUpdate.AccountId = model.AccountId;
+            accountToUpdate.FullName = model.FullName;
+            accountToUpdate.Email = model.Email;
+            accountToUpdate.Phone = model.Phone;
+            accountToUpdate.AccountType = model.AccountType;
 
-        return RedirectToAction(nameof(Index));
+            if(await _repo.UpdateAsync(accountToUpdate)){
+                if(await _repo.SaveAsync()){
+                    return RedirectToAction(nameof(Index));
+                }
+            };
+            var updateError = new ErrorModel{
+                ErrorTitle = "Something went wrong",
+                ErrorMessage = "Something went wrong when trying to update information"
+            };
+            return View("_Error", updateError);
+        }
+        catch (Exception ex)
+        {
+            var error = new ErrorModel{
+                ErrorTitle = "something went wrong when trying to save your changes",
+                ErrorMessage = ex.Message
+            };
+            return View("_Error", error);
+        }
     }
 
     [Route("delete/{accountId}")]
     public async Task<IActionResult> Delete(int accountId)
     {
-        var accountToDelete = await _context.Accounts.SingleOrDefaultAsync(c => c.AccountId == accountId);
+        try
+        {
+            var accountToDelete = await _repo.FindByIdAsync(accountId);
 
-        if(accountToDelete is null) return RedirectToAction(nameof(Index));
+            if(accountToDelete is null) return RedirectToAction(nameof(Index));
 
-        _context.Accounts.Remove(accountToDelete);
-        await _context.SaveChangesAsync();
+            if(await _repo.DeleteAsync(accountToDelete)){
+                if(await _repo.SaveAsync()){
+                    return RedirectToAction(nameof(Index));
+                }
+            }
 
-        return RedirectToAction(nameof(Index));
+            var deleteError = new ErrorModel{
+                ErrorTitle = "Something went wrong",
+                ErrorMessage = "Something went wrong when trying to delete account"
+            };
+
+            return View("_Error", deleteError);
+        }
+        catch (Exception ex)
+        {
+            var error = new ErrorModel{
+                ErrorTitle = "Something went wrong when trying to delete account",
+                ErrorMessage = ex.Message
+            };
+            return View("_Error", error);
+        }
     }
 }
