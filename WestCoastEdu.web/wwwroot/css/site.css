@@ -230,6 +230,10 @@ input{
   text-align: start;
   min-width: 50vw;
 }
+.error{
+  font-size: 1em;
+  color: #360c0c;
+}
 .EditForm label{
   display: flex;
   flex-direction: column;
