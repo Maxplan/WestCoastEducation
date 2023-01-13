@@ -9,17 +9,19 @@ namespace WestCoastEdu.web.Controllers;
 public class AccountsAdminController : Controller
 {
     private readonly IAccountRepository _repo;
+    public IRepository<Account> _genericRepo { get; }
 
-    public AccountsAdminController(IAccountRepository repo)
-    {  
-        _repo = repo;  
+    public AccountsAdminController(IRepository<Account> genericRepo, IAccountRepository repo)
+    {
+        _genericRepo = genericRepo;
+        _repo = repo;    
     }
 
     public async Task<IActionResult> Index()
     {
         try
         {
-            var accounts = await _repo.ListAllAsync();
+            var accounts = await _genericRepo.ListAllAsync();
 
             var model = accounts.Select(a => new AccountListViewModel{
                 AccountId = a.AccountId,
@@ -60,7 +62,7 @@ public class AccountsAdminController : Controller
                 var createError = new ErrorModel
                 {
                     ErrorTitle = "Something Went Wrong When Trying To Create Account",
-                    ErrorMessage = $"There's already an Account for ''{account.Email}''"
+                    ErrorMessage = $"There's already a course with title ''{account.Email}''"
                 };
                 return View("_Error", createError);
             }
@@ -73,8 +75,8 @@ public class AccountsAdminController : Controller
                 AccountType = account.AccountType
             };
 
-            if(await _repo.AddAsync(accountToAdd)){
-                if(await _repo.SaveAsync()){
+            if(await _genericRepo.AddAsync(accountToAdd)){
+                if(await _genericRepo.SaveAsync(accountToAdd)){
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -103,7 +105,7 @@ public class AccountsAdminController : Controller
     {
         try
         {    
-            var result = await _repo.FindByIdAsync(accountId);
+            var result = await _genericRepo.FindByIdAsync(accountId);
 
             if(result is null){
                 var error = new ErrorModel
@@ -141,7 +143,7 @@ public class AccountsAdminController : Controller
         {
             if(!ModelState.IsValid) return View("Edit", model);
 
-            var accountToUpdate = await _repo.FindByIdAsync(accountId);
+            var accountToUpdate = await _genericRepo.FindByIdAsync(accountId);
 
             if(accountToUpdate is null) return RedirectToAction(nameof(Index));
 
@@ -151,8 +153,8 @@ public class AccountsAdminController : Controller
             accountToUpdate.Phone = model.Phone;
             accountToUpdate.AccountType = model.AccountType;
 
-            if(await _repo.UpdateAsync(accountToUpdate)){
-                if(await _repo.SaveAsync()){
+            if(await _genericRepo.UpdateAsync(accountToUpdate)){
+                if(await _genericRepo.SaveAsync(accountToUpdate)){
                     return RedirectToAction(nameof(Index));
                 }
             };
@@ -177,12 +179,12 @@ public class AccountsAdminController : Controller
     {
         try
         {
-            var accountToDelete = await _repo.FindByIdAsync(accountId);
+            var accountToDelete = await _genericRepo.FindByIdAsync(accountId);
 
             if(accountToDelete is null) return RedirectToAction(nameof(Index));
 
-            if(await _repo.DeleteAsync(accountToDelete)){
-                if(await _repo.SaveAsync()){
+            if(await _genericRepo.DeleteAsync(accountToDelete)){
+                if(await _genericRepo.SaveAsync(accountToDelete)){
                     return RedirectToAction(nameof(Index));
                 }
             }
