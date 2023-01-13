@@ -10,16 +10,18 @@ namespace WestCoastEdu.web.Controllers;
 public class CoursesAdminController : Controller
 {
     private readonly ICourseRepository _repo;
+    public IRepository<Course> _genericRepo { get; }
 
-    public CoursesAdminController(WestCoastEduContext context, ICourseRepository repo)
+    public CoursesAdminController(IRepository<Course> genericRepo, ICourseRepository repo)
     {
+        _genericRepo = genericRepo;
         _repo = repo;    
     }
     public async Task<IActionResult> Index()
     {
         try
         {
-            var courses = await _repo.ListAllAsync();
+            var courses = await _genericRepo.ListAllAsync();
 
             var model = courses.Select(a => new CourseListViewModel{
                 CourseId = a.CourseId,
@@ -53,19 +55,19 @@ public class CoursesAdminController : Controller
         {
             if (!ModelState.IsValid) return View("Create", course);
 
-            var courseTitleExists = await _repo.FindByTitleAsync(course.CourseTitle);
+            var titleExists = await _repo.FindByTitleAsync(course.CourseTitle);
 
-            if (courseTitleExists is not null)
+            if (titleExists is not null)
             {
                 var createError = new ErrorModel
                 {
                     ErrorTitle = "Something Went Wrong When Trying To Create Account",
-                    ErrorMessage = $"There's already a course with the title ''{course.CourseTitle}''"
+                    ErrorMessage = $"There's already an Account for ''{course.CourseTitle}''"
                 };
                 return View("_Error", createError);
             }
-            
-            var courseToAdd = new Course
+
+            var courseToAdd = new Course()
             {
                 CourseTitle = course.CourseTitle,
                 CourseName = course.CourseName,
@@ -74,8 +76,8 @@ public class CoursesAdminController : Controller
                 CourseDescription = course.CourseDescription
             };
 
-            if(await _repo.AddAsync(courseToAdd)){
-                if(await _repo.SaveAsync()){
+            if(await _genericRepo.AddAsync(courseToAdd)){
+                if(await _genericRepo.SaveAsync(courseToAdd)){
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -103,7 +105,7 @@ public class CoursesAdminController : Controller
     {
         try
         {    
-            var result = await _repo.FindByIdAsync(courseId);
+            var result = await _genericRepo.FindByIdAsync(courseId);
 
             if(result is null){
                 var error = new ErrorModel
@@ -142,7 +144,7 @@ public class CoursesAdminController : Controller
         {
             if(!ModelState.IsValid) return View("Edit", model);
 
-            var courseToUpdate = await _repo.FindByIdAsync(courseId);
+            var courseToUpdate = await _genericRepo.FindByIdAsync(courseId);
 
             if(courseToUpdate is null) return RedirectToAction(nameof(Index));
 
@@ -152,8 +154,8 @@ public class CoursesAdminController : Controller
             courseToUpdate.EndDate = model.EndDate;
             courseToUpdate.CourseDescription = model.CourseDescription;
 
-            if(await _repo.UpdateAsync(courseToUpdate)){
-                if(await _repo.SaveAsync()){
+            if(await _genericRepo.UpdateAsync(courseToUpdate)){
+                if(await _genericRepo.SaveAsync(courseToUpdate)){
                     return RedirectToAction(nameof(Index));
                 }
             };
@@ -182,8 +184,8 @@ public class CoursesAdminController : Controller
 
             if(courseToDelete is null) return RedirectToAction(nameof(Index));
 
-            if(await _repo.DeleteAsync(courseToDelete)){
-                if(await _repo.SaveAsync()){
+            if(await _genericRepo.DeleteAsync(courseToDelete)){
+                if(await _genericRepo.SaveAsync(courseToDelete)){
                     return RedirectToAction(nameof(Index));
                 }
             }
