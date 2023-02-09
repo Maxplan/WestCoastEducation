@@ -8,27 +8,24 @@ namespace WestCoastEdu.web.Controllers;
 [Route("accounts/admin")]
 public class AccountsAdminController : Controller
 {
-    private readonly IAccountRepository _repo;
-    public IRepository<Account> _genericRepo { get; }
+    private readonly IUnitOfWork _unitOfWork;
 
-    public AccountsAdminController(IRepository<Account> genericRepo, IAccountRepository repo)
-    {
-        _genericRepo = genericRepo;
-        _repo = repo;    
+    public AccountsAdminController(IUnitOfWork unitOfWork)
+    {   
+            this._unitOfWork = unitOfWork;
     }
 
     public async Task<IActionResult> Index()
     {
         try
         {
-            var accounts = await _genericRepo.ListAllAsync();
+            var accounts = await _unitOfWork.AccountRepository.ListAllAsync();
 
             var model = accounts.Select(a => new AccountListViewModel{
                 AccountId = a.AccountId,
                 FullName = a.FullName,
                 Email = a.Email,
-                Phone = a.Phone,
-                AccountType = a.AccountType
+                Phone = a.Phone
             }).ToList();
 
             return View("Index", model);
@@ -55,7 +52,7 @@ public class AccountsAdminController : Controller
         {
             if (!ModelState.IsValid) return View("Create", account);
 
-            var emailExists = await _repo.FindByEmailAsync(account.Email);
+            var emailExists = await _unitOfWork.AccountRepository.FindByEmailAsync(account.Email);
 
             if (emailExists is not null)
             {
@@ -72,11 +69,10 @@ public class AccountsAdminController : Controller
                 FullName = account.FullName,
                 Email = account.Email,
                 Phone = account.Phone,
-                AccountType = account.AccountType
             };
 
-            if(await _genericRepo.AddAsync(accountToAdd)){
-                if(await _genericRepo.SaveAsync(accountToAdd)){
+            if(await _unitOfWork.AccountRepository.AddAsync(accountToAdd)){
+                if(await _unitOfWork.Complete()){
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -105,7 +101,7 @@ public class AccountsAdminController : Controller
     {
         try
         {    
-            var result = await _genericRepo.FindByIdAsync(accountId);
+            var result = await _unitOfWork.AccountRepository.FindByIdAsync(accountId);
 
             if(result is null){
                 var error = new ErrorModel
@@ -121,7 +117,6 @@ public class AccountsAdminController : Controller
                 FullName = result.FullName,
                 Email = result.Email,
                 Phone = result.Phone,
-                AccountType = result.AccountType
             };
 
             return View("Edit", model);
@@ -143,7 +138,7 @@ public class AccountsAdminController : Controller
         {
             if(!ModelState.IsValid) return View("Edit", model);
 
-            var accountToUpdate = await _genericRepo.FindByIdAsync(accountId);
+            var accountToUpdate = await _unitOfWork.AccountRepository.FindByIdAsync(accountId);
 
             if(accountToUpdate is null) return RedirectToAction(nameof(Index));
 
@@ -151,10 +146,9 @@ public class AccountsAdminController : Controller
             accountToUpdate.FullName = model.FullName;
             accountToUpdate.Email = model.Email;
             accountToUpdate.Phone = model.Phone;
-            accountToUpdate.AccountType = model.AccountType;
 
-            if(await _genericRepo.UpdateAsync(accountToUpdate)){
-                if(await _genericRepo.SaveAsync(accountToUpdate)){
+            if(await _unitOfWork.AccountRepository.UpdateAsync(accountToUpdate)){
+                if(await _unitOfWork.Complete()){
                     return RedirectToAction(nameof(Index));
                 }
             };
@@ -179,12 +173,12 @@ public class AccountsAdminController : Controller
     {
         try
         {
-            var accountToDelete = await _genericRepo.FindByIdAsync(accountId);
+            var accountToDelete = await _unitOfWork.AccountRepository.FindByIdAsync(accountId);
 
             if(accountToDelete is null) return RedirectToAction(nameof(Index));
 
-            if(await _genericRepo.DeleteAsync(accountToDelete)){
-                if(await _genericRepo.SaveAsync(accountToDelete)){
+            if(await _unitOfWork.AccountRepository.DeleteAsync(accountToDelete)){
+                if(await _unitOfWork.Complete()){
                     return RedirectToAction(nameof(Index));
                 }
             }
