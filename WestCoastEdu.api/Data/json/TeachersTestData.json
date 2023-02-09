@@ -1,0 +1,35 @@
+[
+    {
+      "dateOfBirth": "1996-12-17T09:00:00.000Z",
+      "firstName": "Micheal",
+      "lastName": "Scott",
+      "email": "michaelscott@email.com",
+      "phone": "555-555-3456",
+      "address": "246 Oak St.",
+      "postalCode": "56789",
+      "city": "Somewhere",
+      "country": "USA"
+    },
+    {
+      "dateOfBirth": "1998-06-01T14:00:00.000Z",
+      "firstName": "Joey",
+      "lastName": "Badass",
+      "email": "joeybadass@email.com",
+      "phone": "555-555-6789",
+      "address": "135 Cedar St.",
+      "postalCode": "90123",
+      "city": "Anywhere",
+      "country": "USA"
+    },
+    {
+      "dateOfBirth": "1994-11-08T23:45:00.000Z",
+      "firstName": "Dave",
+      "lastName": "Chapelle",
+      "email": "davechapell@email.com",
+      "phone": "555-555-2345",
+      "address": "369 Maple St.",
+      "postalCode": "67801",
+      "city": "Everytown",
+      "country": "USA"
+    }
+]

@@ -1,0 +1,68 @@
+[
+    {
+      "dateOfBirth": "1997-01-15T12:30:00.000Z",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "johndoe@email.com",
+      "phone": "555-555-1234",
+      "address": "123 Main St.",
+      "postalCode": "12345",
+      "city": "Anytown",
+      "country": "USA"
+    },
+    {
+      "dateOfBirth": "1995-07-22T08:45:00.000Z",
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "email": "janedoe@email.com",
+      "phone": "555-555-5678",
+      "address": "456 Elm St.",
+      "postalCode": "67890",
+      "city": "Anothertown",
+      "country": "USA"
+    },
+    {
+      "dateOfBirth": "1999-03-05T16:15:00.000Z",
+      "firstName": "James",
+      "lastName": "Smith",
+      "email": "jamessmith@email.com",
+      "phone": "555-555-9012",
+      "address": "789 Pine St.",
+      "postalCode": "34567",
+      "city": "Yetanothertown",
+      "country": "USA"
+    },
+    {
+      "dateOfBirth": "1996-12-17T09:00:00.000Z",
+      "firstName": "Emily",
+      "lastName": "Johnson",
+      "email": "emilyjohnson@email.com",
+      "phone": "555-555-3456",
+      "address": "246 Oak St.",
+      "postalCode": "56789",
+      "city": "Somewhere",
+      "country": "USA"
+    },
+    {
+      "dateOfBirth": "1998-06-01T14:00:00.000Z",
+      "firstName": "Michael",
+      "lastName": "Williams",
+      "email": "michaelwilliams@email.com",
+      "phone": "555-555-6789",
+      "address": "135 Cedar St.",
+      "postalCode": "90123",
+      "city": "Anywhere",
+      "country": "USA"
+    },
+    {
+      "dateOfBirth": "1994-11-08T23:45:00.000Z",
+      "firstName": "Samantha",
+      "lastName": "Jones",
+      "email": "samanthajones@email.com",
+      "phone": "555-555-2345",
+      "address": "369 Maple St.",
+      "postalCode": "67801",
+      "city": "Everytown",
+      "country": "USA"
+    }
+]

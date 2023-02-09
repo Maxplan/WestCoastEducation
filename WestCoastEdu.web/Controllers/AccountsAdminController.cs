@@ -25,8 +25,7 @@ public class AccountsAdminController : Controller
                 AccountId = a.AccountId,
                 FullName = a.FullName,
                 Email = a.Email,
-                Phone = a.Phone,
-                AccountType = a.AccountType
+                Phone = a.Phone
             }).ToList();
 
             return View("Index", model);
@@ -70,7 +69,6 @@ public class AccountsAdminController : Controller
                 FullName = account.FullName,
                 Email = account.Email,
                 Phone = account.Phone,
-                AccountType = account.AccountType
             };
 
             if(await _unitOfWork.AccountRepository.AddAsync(accountToAdd)){
@@ -119,7 +117,6 @@ public class AccountsAdminController : Controller
                 FullName = result.FullName,
                 Email = result.Email,
                 Phone = result.Phone,
-                AccountType = result.AccountType
             };
 
             return View("Edit", model);
@@ -149,7 +146,6 @@ public class AccountsAdminController : Controller
             accountToUpdate.FullName = model.FullName;
             accountToUpdate.Email = model.Email;
             accountToUpdate.Phone = model.Phone;
-            accountToUpdate.AccountType = model.AccountType;
 
             if(await _unitOfWork.AccountRepository.UpdateAsync(accountToUpdate)){
                 if(await _unitOfWork.Complete()){
