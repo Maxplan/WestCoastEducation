@@ -26,10 +26,10 @@ namespace WestCoastEdu.api.Controllers
                         Title = c.Title,
                         CourseNumber = c.CourseNumber,
                         Students = c.Students.Select(
-                            s => new 
-                            { 
-                                FirstName = s.FirstName, 
-                                LastName = s.LastName 
+                            s => new
+                            {
+                                FirstName = s.FirstName,
+                                LastName = s.LastName
                             })
                     }
                 ).ToListAsync();
@@ -48,10 +48,10 @@ namespace WestCoastEdu.api.Controllers
                         Title = c.Title,
                         CourseNumber = c.CourseNumber,
                         Students = c.Students.Select(
-                            s => new 
-                            { 
-                                FirstName = s.FirstName, 
-                                LastName = s.LastName 
+                            s => new
+                            {
+                                FirstName = s.FirstName,
+                                LastName = s.LastName
                             })
                     }
                 ).ToListAsync();
@@ -59,12 +59,14 @@ namespace WestCoastEdu.api.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("add")]
         public async Task<IActionResult> Add(CoursePostViewModel model)
         {
+            if (!ModelState.IsValid) return BadRequest("Invalid model");
+
             var exists = await _context.Courses.SingleOrDefaultAsync(c => c.CourseNumber == model.CourseNumber && c.StartDate == model.StartDate);
 
-            if(exists is not null) return BadRequest("Course Already Exists");
+            if (exists is not null) return BadRequest("Course Already Exists");
 
             var course = new Course
             {
@@ -74,8 +76,9 @@ namespace WestCoastEdu.api.Controllers
                 StartDate = model.StartDate,
                 EndDate = model.StartDate.AddDays(model.DurationWk * 7)
             };
-            
+
             await _context.Courses.AddAsync(course);
+
             if (await _context.SaveChangesAsync() > 0)
             {
                 return CreatedAtAction(nameof(GetById), new { Id = course.CourseId }, new
@@ -87,42 +90,59 @@ namespace WestCoastEdu.api.Controllers
                     StartDate = course.StartDate
                 });
             }
-            return BadRequest("Could not save changes");
+            return StatusCode(500, "An error occurred while trying to save changes");
         }
 
         [HttpGet("getbyid/{id}")]
-        public async Task<IActionResult> GetById(int id){
-            var result = await _context.Courses.FindAsync(id);
-            var course = new{id = result.CourseId};
+        public async Task<IActionResult> GetById(int id)
+        {
+            var course = await _context.Courses
+            .Include(c => c.Students)
+            .FirstOrDefaultAsync(c => c.CourseId == id);
+
+            if (course is null) return BadRequest("Course not found");
+
+            var result = new
+            {
+                Title = course.Title,
+                CourseNumber = course.CourseNumber,
+                Students = course.Students.Select(
+                            c => new
+                            {
+                                FirstName = c.FirstName,
+                                LastName = c.LastName
+                            })
+            };
+
             return Ok(result);
         }
-        [HttpPatch("addteacher")]
+
+        [HttpPatch("addteacher/{courseId}/{teacherId}")]
         public async Task<IActionResult> AddTeacherToCourse(int courseId, int teacherId)
         {
             var course = await _context.Courses.FindAsync(courseId);
-            if (course is null) return NotFound("Something went wrong");
+
+            if (course is null) return BadRequest("Course not found");
 
             var teacher = await _context.Teachers.FindAsync(teacherId);
-            if (teacher is null) return NotFound("Something went wrong");
+
+            if (teacher is null) return BadRequest("Teacher not found");
 
             course.Teacher = teacher;
 
             _context.Update(course);
 
-            if (await _context.SaveChangesAsync() > 0)
-            {
-                return Ok();
-            }
+            if (await _context.SaveChangesAsync() > 0) return Ok("Teacher successfully added");
 
-            return StatusCode(500, "Crap!");
+            return StatusCode(500, "An error occurred while trying to save changes");
         }
-        
+
         [HttpPut("update/{id}")]
         public async Task<IActionResult> Update(int id, CourseUpdateViewModel model)
         {
             var courseToUpdate = await _context.Courses.FindAsync(id);
-            
-            if(courseToUpdate is null) return BadRequest($"Could not find a course with Id: {id}");
+
+            if (courseToUpdate is null) return BadRequest($"Could not find a course with Id: {id}");
             courseToUpdate.Title = model.Title;
             courseToUpdate.CourseNumber = model.CourseNumber;
             courseToUpdate.DurationWk = model.DurationWk;
@@ -130,11 +150,9 @@ namespace WestCoastEdu.api.Controllers
 
             _context.Update(courseToUpdate);
 
-            if (await _context.SaveChangesAsync() > 0)
-            {
-                return Ok();
-            }
-            return BadRequest("Something went wrong when saving changes");
+            if (await _context.SaveChangesAsync() > 0) return CreatedAtAction(nameof(GetById), new { id = courseToUpdate.CourseId }, courseToUpdate);
+
+            return StatusCode(500, "An error occurred while trying to save changes");
         }
 
         [HttpPatch("markasfull/{id}")]
@@ -146,11 +164,9 @@ namespace WestCoastEdu.api.Controllers
 
             _context.Update(course);
 
-            if (await _context.SaveChangesAsync() > 0)
-            {
-                return Ok();
-            }
-            return BadRequest("Something went wrong when saving changes");
+            if (await _context.SaveChangesAsync() > 0) return Ok("Course successfully marked as full");
+
+            return StatusCode(500, "An error occurred while trying to save changes");
         }
 
         [HttpPatch("markascompleted/{id}")]
@@ -158,15 +174,71 @@ namespace WestCoastEdu.api.Controllers
         {
             var course = await _context.Courses.FindAsync(id);
 
+            if (course is null) return BadRequest("Course not found");
+
             course.Status = CourseStatusEnum.Completed;
+
+            _context.Update(course);
+
+            if (await _context.SaveChangesAsync() > 0) return Ok("Course successfully marked as completed");
+
+            return StatusCode(500, "An error occurred while trying to save changes");
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var course = await _context.Courses.FindAsync(id);
+
+            if (course is null) return BadRequest("Course not found");
+
+            _context.Courses.Remove(course);
+
+            if (await _context.SaveChangesAsync() > 0) return Ok("Course successully deleted");
+
+            return StatusCode(500, "An error occurred while trying to save changes");
+        }
+
+        [HttpPatch("removestudent/{courseId}/{studentId}")]
+        public async Task<IActionResult> RemoveStudent(int courseId, int studentId)
+        {
+            var course = await _context.Courses
+            .Include(c => c.Students)
+            .FirstOrDefaultAsync(c => c.CourseId == courseId);
+
+            if (course is null) return BadRequest("Course not found");
+
+            var student = await _context.Students.FindAsync(studentId);
+
+            if (student is null) return BadRequest("Student not found");
+
+            student.Courses.Remove(course);
+
+            _context.Students.Update(student);
+
+            _context.Courses.Update(course);
+
+            if (await _context.SaveChangesAsync() > 0) return Ok("Student successfully removed");
+
+            return StatusCode(500, "An error occurred while trying to save changes");
+        }
+
+        [HttpPatch("removeteacher/{courseId}")]
+        public async Task<IActionResult> RemoveTeacher(int courseId)
+        {
+            var course = await _context.Courses.FindAsync(courseId);
+
+            if (course is null) return BadRequest("Course not found");
+
+            course.TeacherId = null;
 
             _context.Update(course);
 
             if (await _context.SaveChangesAsync() > 0)
             {
-                return Ok($"Course: {id} was successfully set to 'Completed'");
+                return Ok("Teacher successfully removed");
             }
-            return BadRequest("Something went wrong when saving changes");
+            return StatusCode(500, "An error occurred while trying to save changes");
         }
     }
 }

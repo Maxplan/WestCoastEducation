@@ -17,6 +17,23 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+
+try
+{
+    var context = services.GetRequiredService<WestCoastEduContext>();
+    await context.Database.MigrateAsync();
+    await SeedData.LoadCourseData(context);
+    await SeedData.LoadStudentData(context);
+    await SeedData.LoadTeacherData(context);
+    await SeedData.LoadCompetenceData(context);
+}
+catch (Exception ex)
+{
+    Console.WriteLine("{0} - {1}", ex.Message, ex.InnerException!.Message);
+    throw;
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
