@@ -10,12 +10,12 @@ namespace WestCoastEdu.api.Models
         public int DurationWk { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public CourseStatusEnum Status { get; set;} = CourseStatusEnum.Upcoming;
+        public CourseStatusEnum Status { get; set; } = CourseStatusEnum.Upcoming; // Försök styra denna via start och end date
         public int? TeacherId { get; set; }
         public bool IsFull { get; set; } = false;
         public ICollection<Student> Students { get; set; } = new List<Student>();
-        // Navigation Properties
-        [ForeignKey("TeacherId")] // Vilken property ska den främmande nyckeln referera till
+
+        [ForeignKey("TeacherId")]
         public Teacher Teacher { get; set; }
     }
 }

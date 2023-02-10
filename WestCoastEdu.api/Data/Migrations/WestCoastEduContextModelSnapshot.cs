@@ -29,7 +29,7 @@ namespace WestCoastApi.Data.Migrations
 
                     b.HasIndex("TeachersId");
 
-                    b.ToTable("CompetenceTeacher");
+                    b.ToTable("CompetenceTeacher", (string)null);
                 });
 
             modelBuilder.Entity("CourseStudent", b =>
@@ -44,7 +44,7 @@ namespace WestCoastApi.Data.Migrations
 
                     b.HasIndex("StudentsId");
 
-                    b.ToTable("CourseStudent");
+                    b.ToTable("CourseStudent", (string)null);
                 });
 
             modelBuilder.Entity("WestCoastEdu.api.Models.Competence", b =>
@@ -58,7 +58,7 @@ namespace WestCoastApi.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Competences");
+                    b.ToTable("Competences", (string)null);
                 });
 
             modelBuilder.Entity("WestCoastEdu.api.Models.Course", b =>
@@ -95,7 +95,7 @@ namespace WestCoastApi.Data.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("WestCoastEdu.api.Models.Student", b =>
@@ -133,7 +133,7 @@ namespace WestCoastApi.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("WestCoastEdu.api.Models.Teacher", b =>
@@ -171,7 +171,7 @@ namespace WestCoastApi.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teachers");
+                    b.ToTable("Teachers", (string)null);
                 });
 
             modelBuilder.Entity("CompetenceTeacher", b =>

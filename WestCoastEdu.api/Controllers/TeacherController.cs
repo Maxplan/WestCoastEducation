@@ -31,26 +31,28 @@ namespace WestCoastEdu.api.Controllers
                                 Name = comp.Name
                             }
                         ),
-                            Courses = t.Courses.Select(
-                                c => new 
-                                { 
+                        Courses = t.Courses.Select(
+                                c => new
+                                {
                                     Title = c.Title,
                                     CourseNumber = c.CourseNumber
                                 })
                     }
                 ).ToListAsync();
-            
-            if(result is null) return BadRequest("Could Not Load List, List is empty");
+
+            if (result is null) return StatusCode(500, "Internal Server error");
 
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("add")]
         public async Task<IActionResult> Add(TeacherPostViewModel model)
         {
+            if (!ModelState.IsValid) return BadRequest("Invalid model");
+
             var exists = await _context.Teachers.SingleOrDefaultAsync(c => c.Email == model.Email);
 
-            if(exists is not null) return BadRequest("Email Already Exists");
+            if (exists is not null) return BadRequest("Email Already Exists");
 
             var teacher = new Teacher
             {
@@ -64,108 +66,165 @@ namespace WestCoastEdu.api.Controllers
                 City = model.City,
                 Country = model.Country
             };
+
             await _context.Teachers.AddAsync(teacher);
-            if(await _context.SaveChangesAsync() > 0)
-            {
-                return Ok(); 
-            }
-            return BadRequest("Something went wrong when trying to save changes");
+
+            if (await _context.SaveChangesAsync() > 0) return CreatedAtAction(nameof(GetById), new { id = teacher.Id }, teacher);
+
+            return StatusCode(500, "An error occurred while trying to save changes");
         }
+
         [HttpGet("getbyid/{id}")]
-        public async Task<IActionResult> GetById(int id){
+        public async Task<IActionResult> GetById(int id)
+        {
             var teacher = await _context.Teachers
             .Include(t => t.Competences)
-            .Include(co => co.Courses)
+            .Include(t => t.Courses)
             .FirstOrDefaultAsync(t => t.Id == id);
-            if(teacher is null) return BadRequest("Teacher could not be found");
+
+            if (teacher is null) return BadRequest("Teacher not found");
+
             var result = new
-                {
-                    FirstName = teacher.FirstName,
-                    LastName = teacher.LastName,
-                    Competences = teacher.Competences.Select(
-                        c => new 
-                        { 
-                            Name = c.Name
+            {
+                FirstName = teacher.FirstName,
+                LastName = teacher.LastName,
+                Competences = teacher.Competences.Select(
+                        t => new
+                        {
+                            Name = t.Name
                         }),
-                        Courses = teacher.Courses.Select(
-                            co => new
-                            {
-                                Title = co.Title,
-                                CourseNumber = co.CourseNumber
-                            })
-                    
-                };
+                Courses = teacher.Courses.Select(
+                        t => new
+                        {
+                            Title = t.Title,
+                            CourseNumber = t.CourseNumber
+                        })
+
+            };
             return Ok(result);
         }
 
         [HttpGet("getbyemail/{email}")]
-        public async Task<IActionResult> GetByEmail(string email){
+        public async Task<IActionResult> GetByEmail(string email)
+        {
             var teacher = await _context.Teachers
             .Include(t => t.Competences)
-            .Include(co => co.Courses)
+            .Include(t => t.Courses)
             .FirstOrDefaultAsync(t => t.Email == email.ToLower().Trim());
-            if(teacher is null) return BadRequest("Teacher could not be found");
+
+            if (teacher is null) return BadRequest("Teacher not found");
+
             var result = new
-                    {
-                        FirstName = teacher.FirstName,
-                        LastName = teacher.LastName,
-                        Competences = teacher.Competences.Select(
-                            c => new 
-                            { 
-                                Name = c.Name
+            {
+                FirstName = teacher.FirstName,
+                LastName = teacher.LastName,
+                Competences = teacher.Competences.Select(
+                            t => new
+                            {
+                                Name = t.Name
                             }),
-                            Courses = teacher.Courses.Select(
-                                co => new
+                Courses = teacher.Courses.Select(
+                                t => new
                                 {
-                                    Title = co.Title,
-                                    CourseNumber = co.CourseNumber
+                                    Title = t.Title,
+                                    CourseNumber = t.CourseNumber
                                 })
-                        
-                    };
+            };
+
             return Ok(result);
         }
 
         [HttpPut("update/{id}")]
         public async Task<IActionResult> Update(int id, TeacherUpdateViewModel model)
         {
-            var t = await _context.Teachers.FindAsync(id);
-            
-            if(t is null) return BadRequest($"Could not find a course with Id: {id}");
+            if (!ModelState.IsValid) return BadRequest("Invalid model");
 
-            t.DateOfBirth = model.DateOfBirth;
-            t.FirstName = model.FirstName;
-            t.LastName = model.LastName;
-            t.Email = model.Email;
-            t.Phone = model.Phone;
-            t.Address = model.Address;
-            t.PostalCode = model.PostalCode;
-            t.City = model.City;
-            t.Country = model.Country;
+            var teacher = await _context.Teachers.FindAsync(id);
 
+            if (teacher is null) return BadRequest("Teacher not found");
 
-            _context.Update(t);
+            teacher.DateOfBirth = model.DateOfBirth;
+            teacher.FirstName = model.FirstName;
+            teacher.LastName = model.LastName;
+            teacher.Email = model.Email;
+            teacher.Phone = model.Phone;
+            teacher.Address = model.Address;
+            teacher.PostalCode = model.PostalCode;
+            teacher.City = model.City;
+            teacher.Country = model.Country;
 
-            if (await _context.SaveChangesAsync() > 0)
-            {
-                return Ok();
-            }
-            return BadRequest("Something went wrong when saving changes");
+            _context.Update(teacher);
+
+            if (await _context.SaveChangesAsync() > 0) return CreatedAtAction(nameof(GetById), new { id = teacher.Id }, teacher);
+
+            return StatusCode(500, "An error occurred while trying to save changes");
         }
 
         [HttpPatch("addcompetence/{teacherId}/{competenceId}")]
         public async Task<IActionResult> AddCompetence(int teacherId, int competenceId)
         {
             var teacher = await _context.Teachers.FindAsync(teacherId);
-            if(teacher is null) return BadRequest($"Could not find a Teacher with Id:{teacherId}");
+
+            if (teacher is null) return BadRequest("Teacher not found");
 
             var competence = await _context.Competences.FindAsync(competenceId);
-            if(competence is null) return BadRequest($"Could not find a competence with Id:{competenceId}");
+
+            if (competence is null) return BadRequest("Competence not found");
 
             teacher.Competences.Add(competence);
-            if(await _context.SaveChangesAsync() > 0){
-                return Ok($"Competence: {competenceId} was added to Teacher: {teacherId}");
+
+            if (await _context.SaveChangesAsync() > 0) return Ok("Competence added successfully");
+
+            return StatusCode(500, "An error occurred while trying to save changes");
+        }
+
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var teacher = await _context.Teachers.Include(t => t.Courses).FirstOrDefaultAsync(t => t.Id == id);
+
+            if (teacher is null) return BadRequest("Teacher not found");
+
+            foreach (var competence in teacher.Competences.ToList())
+            {
+                competence.Teachers.Remove(teacher);
+                _context.Competences.Update(competence);
             }
-            return BadRequest("Something went wrong when trying to save changes");
+
+            foreach (var course in teacher.Courses.ToList())
+            {
+                course.Teacher = null;
+                _context.Courses.Update(course);
+            }
+
+            _context.Teachers.Update(teacher);
+            _context.Teachers.Remove(teacher);
+
+            if (await _context.SaveChangesAsync() > 0) return Ok("Teacher Successfully Removed");
+
+            return StatusCode(500, "An error occurred while trying to save changes");
+        }
+
+        [HttpPatch("removecompetence/{teacherId}/{competenceId}")]
+        public async Task<IActionResult> RemoveCompetence(int teacherId, int competenceId)
+        {
+            var teacher = await _context.Teachers
+            .Include(t => t.Competences)
+            .FirstOrDefaultAsync(t => t.Id == teacherId);
+
+            if (teacher == null) return NotFound("Teacher not found");
+
+            var competence = await _context.Competences.FindAsync(competenceId);
+
+            if (competence == null) return NotFound("Competence not found");
+
+            teacher.Competences.Remove(competence);
+
+            _context.Teachers.Update(teacher);
+
+            if (await _context.SaveChangesAsync() > 0) return Ok("Competence Successfully Removed");
+
+            return StatusCode(500, "An error occurred while trying to save changes");
         }
     }
 }
