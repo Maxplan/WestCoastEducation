@@ -68,7 +68,7 @@ namespace WestCoastEdu.api.Controllers
             return StatusCode(500, "An error occurred while trying to save changes");
         }
         [HttpPatch("addstudenttocourse/{studentId}/{courseId}")]
-        public async Task<IActionResult> AddStudentToCourse(int courseId, int studentId)
+        public async Task<IActionResult> AddStudentToCourse(int studentId, int courseId)
         {
             var course = await _context.Courses.FindAsync(courseId);
 
