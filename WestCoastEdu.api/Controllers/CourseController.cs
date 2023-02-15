@@ -19,20 +19,14 @@ namespace WestCoastEdu.api.Controllers
         [HttpGet("listall")]
         public async Task<IActionResult> ListAll()
         {
-            var result = await _context.Courses
-                .Select(
-                    c => new
-                    {
-                        Title = c.Title,
-                        CourseNumber = c.CourseNumber,
-                        Students = c.Students.Select(
-                            s => new
-                            {
-                                FirstName = s.FirstName,
-                                LastName = s.LastName
-                            })
-                    }
-                ).ToListAsync();
+            var courses = await _context.Courses.Include(c => c.Students).ToListAsync();
+
+            if (courses is null) NotFound("Courses not found");
+
+            var result = courses.Select(c => new CourseGetViewModel(c)
+            {
+                Students = c.Students.Select(s => new StudentGetViewModel(s)).ToList()
+            });
 
             return Ok(result);
         }
@@ -40,21 +34,13 @@ namespace WestCoastEdu.api.Controllers
         [HttpGet("getbystartdate/{startDate}")]
         public async Task<IActionResult> GetByStartDate(DateTime startDate)
         {
-            var result = await _context.Courses
-                .Where(c => c.StartDate.Date == startDate.Date)
-                .Select(
-                    c => new
-                    {
-                        Title = c.Title,
-                        CourseNumber = c.CourseNumber,
-                        Students = c.Students.Select(
-                            s => new
-                            {
-                                FirstName = s.FirstName,
-                                LastName = s.LastName
-                            })
-                    }
-                ).ToListAsync();
+            var courses = await _context.Courses
+            .Where(c => c.StartDate.Date == startDate.Date)
+            .ToListAsync();
+
+            if (courses is null) NotFound("Course not found");
+
+            var result = courses.Select(c => new CourseGetViewModel(c));
 
             return Ok(result);
         }
@@ -87,7 +73,8 @@ namespace WestCoastEdu.api.Controllers
                     Title = course.Title,
                     CourseNumber = course.CourseNumber,
                     DurationWk = course.DurationWk,
-                    StartDate = course.StartDate
+                    StartDate = course.StartDate,
+                    EndDate = model.StartDate.AddDays(model.DurationWk * 7)
                 });
             }
             return StatusCode(500, "An error occurred while trying to save changes");
@@ -96,22 +83,15 @@ namespace WestCoastEdu.api.Controllers
         [HttpGet("getbyid/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var course = await _context.Courses
-            .Include(c => c.Students)
-            .FirstOrDefaultAsync(c => c.CourseId == id);
+            var course = await _context.Courses.Include(c => c.Students)
+            .SingleOrDefaultAsync(c => c.CourseId == id);
 
-            if (course is null) return BadRequest("Course not found");
+            if (course is null) return NotFound("Course not found");
 
-            var result = new
+
+            var result = new CourseGetViewModel(course)
             {
-                Title = course.Title,
-                CourseNumber = course.CourseNumber,
-                Students = course.Students.Select(
-                            c => new
-                            {
-                                FirstName = c.FirstName,
-                                LastName = c.LastName
-                            })
+                Students = course.Students.Select(s => new StudentGetViewModel(s)).ToList()
             };
 
             return Ok(result);

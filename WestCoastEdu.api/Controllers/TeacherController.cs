@@ -19,28 +19,19 @@ namespace WestCoastEdu.api.Controllers
         [HttpGet("listall")]
         public async Task<IActionResult> ListAll()
         {
-            var result = await _context.Teachers
-                .Select(
-                    t => new
-                    {
-                        FirstName = t.FirstName,
-                        LastName = t.LastName,
-                        Competences = t.Competences.Select(
-                            comp => new
-                            {
-                                Name = comp.Name
-                            }
-                        ),
-                        Courses = t.Courses.Select(
-                                c => new
-                                {
-                                    Title = c.Title,
-                                    CourseNumber = c.CourseNumber
-                                })
-                    }
-                ).ToListAsync();
+            var teachers = await _context.Teachers.Include(t => t.Competences).Include(t => t.Courses).ToListAsync();
 
-            if (result is null) return StatusCode(500, "Internal Server error");
+            if (teachers is null) NotFound("Teachers not found");
+
+            var result = teachers.Select(t => new TeacherGetViewModel(t)
+            {
+                Competences = t.Competences.Select(c => new Competence
+                {
+                    Id = c.Id,
+                    Name = c.Name
+                }).ToList(),
+                Courses = t.Courses.Select(c => new CourseGetViewModel(c)).ToList()
+            });
 
             return Ok(result);
         }
