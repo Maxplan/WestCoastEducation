@@ -1,0 +1,23 @@
+@model WestCoastEdu.web.ViewModels.StudentDetailsViewModel
+@{
+    ViewData["Title"] = @Model.FirstName + " " + @Model.LastName;
+}
+
+<div class="gallery">
+    <div class="gallerycardtop">
+    <h2>@Model.FirstName @Model.LastName</h2>
+    <h3>Student</h3>
+    </div>
+    <div class="gallerycontent">
+        <div>
+            <p>Email: @Model.Email</p>
+            <p>Phone: @Model.Phone</p>
+        </div>
+        <div>
+            <p>Country: @Model.Country</p>
+            <p>Postal Code: @Model.PostalCode</p>
+            <p>City: @Model.City</p>
+            <p>Address: @Model.Address</p>
+        </div>
+    </div>
+</div>

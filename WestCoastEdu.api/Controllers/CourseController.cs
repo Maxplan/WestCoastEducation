@@ -19,14 +19,23 @@ namespace WestCoastEdu.api.Controllers
         [HttpGet("listall")]
         public async Task<IActionResult> ListAll()
         {
-            var courses = await _context.Courses.Include(c => c.Students).ToListAsync();
-
-            if (courses is null) NotFound("Courses not found");
-
-            var result = courses.Select(c => new CourseGetViewModel(c)
-            {
-                Students = c.Students.Select(s => new StudentGetViewModel(s)).ToList()
-            });
+            var result = await _context.Courses
+                .Select(
+                    c => new
+                    {
+                        Id = c.CourseId,
+                        Title = c.Title,
+                        CourseNumber = c.CourseNumber,
+                        StartDate = c.StartDate.Date,
+                        EndDate = c.EndDate.Date,
+                        Students = c.Students.Select(
+                            s => new
+                            {
+                                FirstName = s.FirstName,
+                                LastName = s.LastName
+                            })
+                    }
+                ).ToListAsync();
 
             return Ok(result);
         }
@@ -34,13 +43,21 @@ namespace WestCoastEdu.api.Controllers
         [HttpGet("getbystartdate/{startDate}")]
         public async Task<IActionResult> GetByStartDate(DateTime startDate)
         {
-            var courses = await _context.Courses
-            .Where(c => c.StartDate.Date == startDate.Date)
-            .ToListAsync();
-
-            if (courses is null) NotFound("Course not found");
-
-            var result = courses.Select(c => new CourseGetViewModel(c));
+            var result = await _context.Courses
+                .Where(c => c.StartDate.Date == startDate.Date)
+                .Select(
+                    c => new
+                    {
+                        Title = c.Title,
+                        CourseNumber = c.CourseNumber,
+                        Students = c.Students.Select(
+                            s => new
+                            {
+                                FirstName = s.FirstName,
+                                LastName = s.LastName
+                            })
+                    }
+                ).ToListAsync();
 
             return Ok(result);
         }
@@ -60,7 +77,7 @@ namespace WestCoastEdu.api.Controllers
                 CourseNumber = model.CourseNumber,
                 DurationWk = model.DurationWk,
                 StartDate = model.StartDate,
-                EndDate = model.StartDate.AddDays(model.DurationWk * 7)
+                EndDate = model.StartDate.AddDays(model.DurationWk * 7),
             };
 
             await _context.Courses.AddAsync(course);
@@ -73,8 +90,7 @@ namespace WestCoastEdu.api.Controllers
                     Title = course.Title,
                     CourseNumber = course.CourseNumber,
                     DurationWk = course.DurationWk,
-                    StartDate = course.StartDate,
-                    EndDate = model.StartDate.AddDays(model.DurationWk * 7)
+                    StartDate = course.StartDate
                 });
             }
             return StatusCode(500, "An error occurred while trying to save changes");
@@ -83,15 +99,33 @@ namespace WestCoastEdu.api.Controllers
         [HttpGet("getbyid/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var course = await _context.Courses.Include(c => c.Students)
-            .SingleOrDefaultAsync(c => c.CourseId == id);
+            var course = await _context.Courses
+            .Include(c => c.Students)
+            .Include(c => c.Teacher)
+            .FirstOrDefaultAsync(c => c.CourseId == id);
 
-            if (course is null) return NotFound("Course not found");
+            if (course is null) return BadRequest("Course not found");
 
-
-            var result = new CourseGetViewModel(course)
+            var result = new
             {
-                Students = course.Students.Select(s => new StudentGetViewModel(s)).ToList()
+                Id = course.CourseId,
+                Title = course.Title,
+                CourseNumber = course.CourseNumber,
+                StartDate = course.StartDate,
+                EndDate = course.EndDate,
+                Teacher = course.Teacher != null ? new 
+                {
+                    Id = course.Teacher.Id,
+                    FirstName = course.Teacher.FirstName,
+                    LastName = course.Teacher.LastName
+                } : null,
+                Students = course.Students.Select(
+                            c => new
+                            {
+                                Id = c.Id,
+                                FirstName = c.FirstName,
+                                LastName = c.LastName
+                            })
             };
 
             return Ok(result);

@@ -12,7 +12,7 @@ namespace WestCoastEdu.api.Models
         public DateTime EndDate { get; set; }
         public CourseStatusEnum Status { get; set; } = CourseStatusEnum.Upcoming; // Försök styra denna via start och end date
         public int? TeacherId { get; set; }
-        public bool IsFull { get; set; }
+        public bool IsFull { get; set; } = false;
         public ICollection<Student> Students { get; set; } = new List<Student>();
 
         [ForeignKey("TeacherId")]

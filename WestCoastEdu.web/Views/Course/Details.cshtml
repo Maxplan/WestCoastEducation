@@ -1,0 +1,32 @@
+@model WestCoastEdu.web.ViewModels.CourseDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="gallery">
+    <div class="gallerycardtop">
+        <h2>@Model.Title</h2>
+        <h3>@Model.CourseNumber</h3>
+    </div>
+    <div class="coursecard">
+        <div class="gallerycoursedate">
+            <p>@Model.StartDate.ToString("yyyy-MM-dd") - @Model.EndDate.ToString("yyyy-MM-dd")</p>
+        </div>
+
+        <h2>Teacher</h2>
+        @if(Model.Teacher is null)
+        {
+            <p>Unassigned</p>
+        }
+        else
+        {
+            <a asp-controller="Teacher" asp-action="Details" asp-route-id="@Model.Teacher.Id">@Model.Teacher.FirstName @Model.Teacher.LastName</a>
+        }
+
+        <h2>Students</h2>
+        @foreach (var student in Model.Students)
+        {
+            <a asp-controller="Student" asp-action="Details" asp-route-id="@student.Id">@student.FirstName @student.LastName</a>
+        }
+    </div>
+</div>

@@ -1,0 +1,26 @@
+@model IEnumerable<WestCoastEdu.web.ViewModels.CourseListViewModel>
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<article>
+    <h1>Available Courses</h1>
+
+    <div class="gallery">
+        @foreach (var course in Model)
+        {
+            <div class="gallerycard">
+                <div class="gallerycardtop">
+                    <a asp-controller="Course" asp-action="Details" asp-route-id="@course.Id">@course.Title</a>
+                    <p>@course.CourseNumber</p>
+                </div>
+                <div class="gallerycardbtm">
+                    <p class="datespan">@course.StartDate.ToString("yyyy-MM-dd")</p>
+                    <p>-</p>
+                    <p class="datespan">@course.EndDate.ToString("yyyy-MM-dd")</p>
+                    <a class="dtl-link"asp-controller="Course" asp-action="Details" asp-route-id="@course.Id">Details</a>
+                </div>
+            </div>
+        }
+    </div>
+</article>
