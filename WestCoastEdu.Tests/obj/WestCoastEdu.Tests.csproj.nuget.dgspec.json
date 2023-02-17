@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\maxpl\\WestCoastEducation\\WestCoastEdu.Tests\\WestCoastEdu.Tests.csproj": {}
+    "c:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.Tests\\WestCoastEdu.Tests.csproj": {}
   },
   "projects": {
-    "c:\\Users\\maxpl\\WestCoastEducation\\WestCoastEdu.BCL\\WestCoastEdu.BCL.csproj": {
+    "c:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.BCL\\WestCoastEdu.BCL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\maxpl\\WestCoastEducation\\WestCoastEdu.BCL\\WestCoastEdu.BCL.csproj",
+        "projectUniqueName": "c:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.BCL\\WestCoastEdu.BCL.csproj",
         "projectName": "WestCoastEdu.BCL",
-        "projectPath": "c:\\Users\\maxpl\\WestCoastEducation\\WestCoastEdu.BCL\\WestCoastEdu.BCL.csproj",
+        "projectPath": "c:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.BCL\\WestCoastEdu.BCL.csproj",
         "packagesPath": "C:\\Users\\maxpl\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\maxpl\\WestCoastEducation\\WestCoastEdu.BCL\\obj\\",
+        "outputPath": "c:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.BCL\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\maxpl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -59,17 +63,21 @@
         }
       }
     },
-    "c:\\Users\\maxpl\\WestCoastEducation\\WestCoastEdu.Tests\\WestCoastEdu.Tests.csproj": {
+    "c:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.Tests\\WestCoastEdu.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\maxpl\\WestCoastEducation\\WestCoastEdu.Tests\\WestCoastEdu.Tests.csproj",
+        "projectUniqueName": "c:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.Tests\\WestCoastEdu.Tests.csproj",
         "projectName": "WestCoastEdu.Tests",
-        "projectPath": "c:\\Users\\maxpl\\WestCoastEducation\\WestCoastEdu.Tests\\WestCoastEdu.Tests.csproj",
+        "projectPath": "c:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.Tests\\WestCoastEdu.Tests.csproj",
         "packagesPath": "C:\\Users\\maxpl\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\maxpl\\WestCoastEducation\\WestCoastEdu.Tests\\obj\\",
+        "outputPath": "c:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.Tests\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\maxpl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -83,8 +91,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "c:\\Users\\maxpl\\WestCoastEducation\\WestCoastEdu.BCL\\WestCoastEdu.BCL.csproj": {
-                "projectPath": "c:\\Users\\maxpl\\WestCoastEducation\\WestCoastEdu.BCL\\WestCoastEdu.BCL.csproj"
+              "c:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.BCL\\WestCoastEdu.BCL.csproj": {
+                "projectPath": "c:\\Users\\maxpl\\WestCoastEduStart\\WestCoastEdu.BCL\\WestCoastEdu.BCL.csproj"
               }
             }
           }

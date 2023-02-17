@@ -1,0 +1,33 @@
+@model WestCoastEdu.web.ViewModels.CoursePostViewModel;
+
+@{
+    ViewData["Title"] = "Create Course";
+    Layout = "_LayoutAdmin";
+}
+<h1 class="WelcomeText">Add Course</h1>
+<form asp-action="create" asp-controller="CoursesAdmin" method="post" class="EditForm">
+    <div class="FormControl">
+        <label for="">Title</label>
+        <input asp-for="Title"/>
+        <span class="error" asp-validation-for="Title"></span>
+    </div>
+    <div class="FormControl">
+        <label for="">Course Number</label>
+        <input asp-for="CourseNumber"/>
+        <span class="error" asp-validation-for="CourseNumber"></span>
+    </div>
+    <div class="FormControl">
+        <label for="">Duration weeks</label>
+        <input asp-for="DurationWk"/>
+        <span class="error" asp-validation-for="DurationWk"></span>
+    </div>
+    <div class="FormControl">
+        <label for="">Start Date</label>
+        <input asp-for="StartDate"/>
+        <span class="error" asp-validation-for="StartDate"></span>
+    </div>
+    <div class="SubmitDiv">
+        <button type="submit" class="LinkBtnAdmin"><i class="fa-solid fa-save"></i>Create</button>
+        <a asp-action="Index" asp-controller="CoursesAdmin" class="LinkBtnAdmin"><i class="fa-solid fa-arrow-left"></i>Cancel</a>
+    </div>
+</form>

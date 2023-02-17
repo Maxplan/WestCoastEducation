@@ -7,7 +7,7 @@ using WestCoastEdu.api.ViewModels;
 namespace WestCoastEdu.api.Controllers
 {
     [ApiController]
-    [Route("api/students")]
+    [Route("api/v1/students")]
     public class StudentController : ControllerBase
     {
         private readonly WestCoastEduContext _context;
@@ -23,6 +23,7 @@ namespace WestCoastEdu.api.Controllers
                 .Select(
                     s => new
                     {
+                        Id = s.Id,
                         FirstName = s.FirstName,
                         LastName = s.LastName,
                         Courses = s.Courses.Select(
@@ -68,7 +69,7 @@ namespace WestCoastEdu.api.Controllers
             return StatusCode(500, "An error occurred while trying to save changes");
         }
         [HttpPatch("addstudenttocourse/{studentId}/{courseId}")]
-        public async Task<IActionResult> AddStudentToCourse(int studentId, int courseId)
+        public async Task<IActionResult> AddStudentToCourse(int courseId, int studentId)
         {
             var course = await _context.Courses.FindAsync(courseId);
 
@@ -98,8 +99,15 @@ namespace WestCoastEdu.api.Controllers
 
             var result = new
             {
+                Id = student.Id,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
+                Email = student.Email,
+                Phone = student.Phone,
+                Country = student.Country,
+                City = student.City,
+                PostalCode = student.PostalCode,
+                Address = student.Address, 
                 Courses = student.Courses.Select(
                         s => new
                         {

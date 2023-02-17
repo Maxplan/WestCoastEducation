@@ -1,0 +1,46 @@
+@model IList<WestCoastEdu.web.ViewModels.CourseListViewModel>;
+@{
+    ViewData["Title"] = "Courses Admin";
+    Layout = "_LayoutAdmin";
+}
+<h1>Dashboard Kurser</h1>
+<div class="TableContainer">
+    <div class="LinkBtnAdminCountainer">
+        <a class="LinkBtnAdmin" asp-action="Create" asp-controller="CoursesAdmin">Create</a>
+    </div>
+    <table class="Table">
+        <thead class="TableHeader">
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Number</th>
+                <th>Teacher</th>
+                <th>Start</th>
+                <th>End</th>
+            </tr>
+        </thead>
+        <tbody class="TableBody">
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td>@course.Id</td>
+                    <td>@course.Title</td>
+                    <td>@course.CourseNumber</td>
+                    <td>@course.Teacher</td>
+                    <td>@course.StartDate.ToString("yyyy-MM-dd")</td>
+                    <td>@course.EndDate.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="TableFooter">
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

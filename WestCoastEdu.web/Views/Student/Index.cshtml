@@ -1,0 +1,17 @@
+@model IEnumerable<WestCoastEdu.web.ViewModels.StudentListViewModel>
+@{
+    ViewData["Title"] = "Courses";
+}
+
+<h1>Students</h1>
+
+<div class="gallery">
+@foreach (var student in Model)
+{
+    <a asp-action="Details" asp-controller="Student" asp-route-id="@student.Id">
+        <div class="personcard">
+            <p>@student.FirstName  @student.LastName</p>
+        </div>
+    </a>      
+}
+</div>

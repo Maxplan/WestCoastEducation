@@ -19,19 +19,29 @@ namespace WestCoastEdu.api.Controllers
         [HttpGet("listall")]
         public async Task<IActionResult> ListAll()
         {
-            var teachers = await _context.Teachers.Include(t => t.Competences).Include(t => t.Courses).ToListAsync();
+            var result = await _context.Teachers
+                .Select(
+                    t => new
+                    {
+                        Id = t.Id,
+                        FirstName = t.FirstName,
+                        LastName = t.LastName,
+                        Competences = t.Competences.Select(
+                            comp => new
+                            {
+                                Name = comp.Name
+                            }
+                        ),
+                        Courses = t.Courses.Select(
+                                c => new
+                                {
+                                    Title = c.Title,
+                                    CourseNumber = c.CourseNumber
+                                })
+                    }
+                ).ToListAsync();
 
-            if (teachers is null) NotFound("Teachers not found");
-
-            var result = teachers.Select(t => new TeacherGetViewModel(t)
-            {
-                Competences = t.Competences.Select(c => new Competence
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                }).ToList(),
-                Courses = t.Courses.Select(c => new CourseGetViewModel(c)).ToList()
-            });
+            if (result is null) return StatusCode(500, "Internal Server error");
 
             return Ok(result);
         }
@@ -77,8 +87,15 @@ namespace WestCoastEdu.api.Controllers
 
             var result = new
             {
+                Id = teacher.Id,
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
+                Email = teacher.Email,
+                Phone = teacher.Phone,
+                Country = teacher.Country,
+                City = teacher.City,
+                PostalCode = teacher.PostalCode,
+                Address = teacher.Address,
                 Competences = teacher.Competences.Select(
                         t => new
                         {
